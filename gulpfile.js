@@ -6,7 +6,6 @@ const sourcemaps = require('gulp-sourcemaps')
 const cssnano = require('cssnano');
 const terser = require('gulp-terser-js');
 const imagemin = require('gulp-imagemin');
-const notify = require('gulp-notify');
 const cache = require('gulp-cache');
 const webp = require('gulp-webp');
 
@@ -21,7 +20,6 @@ function css() {
         .pipe(sourcemaps.init())
         .pipe(sass())
         .pipe(postcss([autoprefixer(), cssnano()]))
-        // .pipe(postcss([autoprefixer()]))
         .pipe(sourcemaps.write('.'))
         .pipe( dest('public/build/css') );
 }
@@ -38,14 +36,12 @@ function imagenes() {
     return src(paths.imagenes)
         .pipe(cache(imagemin({ optimizationLevel: 3})))
         .pipe(dest('public/build/img'))
-        .pipe(notify({ message: 'Imagen Completada'}));
 }
 
 function versionWebp() {
     return src(paths.imagenes)
         .pipe( webp() )
         .pipe(dest('public/build/img'))
-        .pipe(notify({ message: 'Imagen Completada'}));
 }
 
 
