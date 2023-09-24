@@ -15,7 +15,10 @@ class LoginController{
             $alertas = $usuario->validarLogin();
 
             if(empty($alertas)){
-                echo "paso";
+                $alertas = "";  
+                $alertas = "";  
+                $alertas = "";  
+                $alertas = "";  
             }
         }
 
