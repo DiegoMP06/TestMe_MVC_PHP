@@ -15,10 +15,9 @@ class LoginController{
             $alertas = $usuario->validarLogin();
 
             if(empty($alertas)){
-                $alertas = "";  
-                $alertas = "";  
-                $alertas = "";  
-                $alertas = "";  
+                $auth = Usuario::where("email", $usuario->getEmail());
+
+                debuguear($auth);
             }
         }
 
@@ -27,7 +26,7 @@ class LoginController{
         $router->render("auth/login", [
             "alertas" => $alertas
         ]);
-    }
+    }   
 
     public static function crear(Router $router){
         $router->render("auth/crear", []);
