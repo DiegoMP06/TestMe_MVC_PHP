@@ -1,0 +1,66 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.contenedor {
+    max-width: 120rem;
+    width: 95%;
+    margin: 0 auto;
+}
+
+.seccion {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+.contenido-centrado {
+    max-width: 80rem;
+    width: 95%;
+    margin: 0 auto;
+}
+
+.nombre-pagina { 
+    color: v.$blanco;
+    font-weight: 900;
+    text-align: center;
+    margin-top: 4rem;
+}
+
+.descripcion-pagina {
+    text-align: center;
+    color: v.$grisClaro;
+}
+
+.opciones {
+    text-align: end;
+}
+
+.navegacion {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    a {
+        padding: 1rem;
+        display: block;
+        text-align: center;
+
+        &:hover {
+            color: darken($color: v.$blanco, $amount: 20%);
+        }
+    }
+
+    @include m.tablet {
+        flex-direction: row;
+        gap: 3rem;
+        width: auto;
+
+        a {
+            padding: 0;
+        }
+    }
+}
+
+.logo{
+    font-size: 2.6rem;
+    font-weight: 900;
+}

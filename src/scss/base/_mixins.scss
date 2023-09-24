@@ -1,0 +1,53 @@
+@use 'base/variables' as v;
+
+@mixin boton ($color, $display) {
+    padding: 1rem 3rem;
+    background-color: $color;
+    display: $display;
+    border: none;
+    color: v.$blanco;
+    font-weight: 700;
+    border-radius: 1rem;
+
+    @if($display == block){
+        width: 100%;
+    }@else{
+        width: 100%;
+        @include tablet{
+            width: auto;
+        }
+    }
+
+    &:hover{
+        cursor: pointer;
+        background-color: darken($color, 15%);
+    }
+}
+
+@mixin bigDesktop{
+    @media(min-width: 1100px){
+        @content;
+    }
+}
+
+@mixin desktop{
+    @media(min-width: 992px){
+        @content;
+    }
+}
+
+@mixin tablet{
+    @media(min-width: 768px){
+        @content;
+    }
+}
+
+@mixin telefono{
+    @media(min-width: 480px){
+        @content;
+    }
+}
+
+@mixin ventanaFlotante($bgColor){
+    
+}

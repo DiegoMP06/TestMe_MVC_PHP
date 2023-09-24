@@ -1,0 +1,32 @@
+@use 'base/variables' as v;
+
+.formulario {
+    max-width: 70rem;
+    margin: 5rem auto;
+
+    .campo{
+        margin-bottom: 4rem;
+
+        label{
+            color: v.$grisClaro;
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+        
+        input,
+        textarea {
+            display: block;
+            border: none;
+            color: v.$blanco;
+            background-color: v.$gris;
+            padding: .75rem;
+            width: 100%;
+            border-radius: 1rem;
+        
+            &::placeholder{
+                color: lighten($color: v.$grisClaro, $amount: 10%);
+            }
+        }
+    }
+}

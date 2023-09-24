@@ -1,0 +1,35 @@
+@use 'base/variables' as v;
+
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: v.$blanco;
+    border-radius: 4px;
+
+    &:hover {
+        background: v.$grisClaro;
+        box-shadow: 0 0 2px 1px rgba(0, 0, 0);
+    }
+
+    &:active {
+        background-color: v.$blanco;
+    }
+}
+
+
+
+*::-webkit-scrollbar-track {
+    background: v.$grisOscuro;
+    border-radius: 4px;
+
+    &:hover{
+        background: v.$gris;
+    }
+
+    &:active{
+        background: v.$grisClaro;
+    }
+}

@@ -1,0 +1,21 @@
+node_modules/
+vendor/
+.env
+
+# crear
+# git init
+# git statuc
+# git add .
+# git commit -m "mensaje"
+# git branch -M main
+# git remote add origin {URL Repositorio}
+# git push -u origin main
+
+# actualizar
+# git add .
+# git commit -m "mensaje"
+# git branch -M main
+# git push -u origin main
+
+# Verificar modificaciones
+# git log
