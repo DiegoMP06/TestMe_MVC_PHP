@@ -13,10 +13,14 @@ class LoginController{
         if($_SERVER["REQUEST_METHOD"] === "POST") {
             $usuario = new Usuario($_POST);
             $alertas = $usuario->validarLogin();
+
+            if(empty($alertas)){
+                echo "paso";
+            }
         }
 
         $alertas = $usuario->getAlertas();
-        
+
         $router->render("auth/login", [
             "alertas" => $alertas
         ]);
