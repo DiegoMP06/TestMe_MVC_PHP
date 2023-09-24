@@ -15,6 +15,8 @@ class LoginController{
             $alertas = $usuario->validarLogin();
         }
 
+        $alertas = $usuario->getAlertas();
+        
         $router->render("auth/login", [
             "alertas" => $alertas
         ]);
