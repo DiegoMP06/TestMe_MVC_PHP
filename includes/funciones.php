@@ -18,3 +18,9 @@ function verificarAlertas($atributo, $alertas, $tipo = "error") {
 function alertasFormulario($atributo , $alertas) {
     echo verificarAlertas($atributo ,$alertas);
 }
+
+function is404($evaluacion) {
+    if(!$evaluacion) {
+        header("Location: /error");
+    }
+}

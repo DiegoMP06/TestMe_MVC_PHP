@@ -42,7 +42,9 @@ class ActiveRecord {
     }
 
     public function atributos(){
-        $columnasNull = [];
+        $columnasNull = [
+            "perfilId"
+        ];
         $atributos = [];
 
         foreach (static::$columnasDB as $columna) {
@@ -196,41 +198,9 @@ class ActiveRecord {
         $query = "SELECT " . join(", ", $columnas);
         $query .= " FROM " . static::$tabla . " ";
         $query .= join(" ", $joins) . " ";
-        $query .= " WHERE " . join(" ", $where);
+        if(!empty($comparaciones)) $query .= " WHERE " . join(" ", $where);
         $resultado = self::consultarSQL($query, $object);
 
         return $resultado;
-
-        // ActiveRecord::Join([
-        //     "visitas.id", 
-        //     "visitas.hora", 
-        //     "visitas.puntuacion", 
-        //     "visitas.total", 
-        //     "CONCAT(usuarios.nombre, ' ', usuarios.apellido) as visitante", 
-        //     "usuarios.usuario", 
-        //     "usuarios.email", 
-        //     "usuarios.telefono", 
-        //     "usuarios.imagen as perfi"
-        // ],
-        // [
-        //     "LEFT OUTER JOIN usuarios ON visitas.usuarioId = usuarios.id",
-        //     "LEFT OUTER JOIN tests ON visitas.testId = tests.id"
-        // ],
-        // [
-        //     [
-        //         "columna" => "tests.id", 
-        //         "valor" => "6"
-        //     ],
-        //     [
-        //         "columna" => "visitas.id", 
-        //         "valor" => "10", 
-        //         "comparacion" => "OR"
-        //     ],
-        //     [
-        //         "columna" => "visitas.fecha", 
-        //         "valor" => "23-8-31", 
-        //         "comparacion" => "AND"
-        //     ],
-        // ]);
     }
 }

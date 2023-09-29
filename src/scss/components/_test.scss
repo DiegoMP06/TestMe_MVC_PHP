@@ -1,0 +1,28 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.test {
+    display: inline-block;
+    background-color: v.$grisOscuro;
+    padding: 2rem;
+
+}
+
+.caracteristicas {
+    margin-top: 2rem;
+
+    li {
+        font-weight: 700;
+        color: v.$grisClaro;
+
+        span {
+            font-weight: 400;
+            color: v.$blanco;
+        }
+    }
+}
+
+.tests {
+    margin-top: 3rem;
+    overflow: auto;
+}

@@ -11,10 +11,10 @@ class Sala extends ActiveRecord {
         "profesores",
         "alumnosMax",
         "profesoresMax",
+        "password",
         "creado",
         "actualizado",
         "publico",
-        "tiempo",
         "acceso",
         "usuarioId",
     ];
@@ -26,10 +26,10 @@ class Sala extends ActiveRecord {
     protected $profesores;
     protected $alumnosMax;
     protected $profesoresMax;
+    protected $password;
     protected $creado;
     protected $actualizado;
     protected $publico;
-    protected $tiempo;
     protected $acceso;
     protected $usuarioId;
     

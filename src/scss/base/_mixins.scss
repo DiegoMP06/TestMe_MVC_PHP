@@ -1,13 +1,16 @@
 @use 'base/variables' as v;
 
 @mixin boton ($color, $display) {
-    padding: 1rem 3rem;
+    padding: 1rem 2rem;
     background-color: $color;
     display: $display;
     border: none;
     color: v.$blanco;
     font-weight: 700;
     border-radius: 1rem;
+    text-align: center;
+    font-size: 1.8rem;
+    overflow: hidden;
 
     @if($display == block){
         width: 100%;

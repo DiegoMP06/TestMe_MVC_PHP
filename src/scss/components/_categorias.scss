@@ -1,0 +1,15 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.categoria {
+    background-color: darken($color: v.$grisOscuro, $amount: 10%);
+    padding: 2rem;
+    margin-bottom: 4rem;
+
+    .ver-mas {
+        display: block;
+        text-align: right;
+        color: v.$gris;
+        font-weight: 700;
+    }
+}

@@ -19,6 +19,8 @@ class Router
         $currentUrl = strtok($_SERVER["REQUEST_URI"], "?") ?? "/";
         $method = $_SERVER['REQUEST_METHOD'];
 
+        session_start();
+
         if ($method === 'GET') {
             $fn = $this->getRoutes[$currentUrl] ?? null;
         } else {
@@ -28,12 +30,13 @@ class Router
         if($fn) {
             call_user_func($fn, $this); 
         }else{
-            $this->render("");
+            $this->render("templates/error");
         }
     }
 
     public function render($view, $datos = [])
     {
+        
         foreach ($datos as $key => $value) {
             $$key = $value;
         }

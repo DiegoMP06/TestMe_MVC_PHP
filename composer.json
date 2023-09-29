@@ -7,7 +7,7 @@
             "MVC\\": "./",
             "Controller\\": "./controllers/",
             "Model\\": "./models/",
-            "Class\\": "./classes/"
+            "Clase\\": "./classes/"
         }
     },
     "authors": [

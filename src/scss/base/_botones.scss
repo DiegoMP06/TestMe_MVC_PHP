@@ -33,3 +33,19 @@
 .boton-verde-block {
     @include m.boton(v.$verde, block);
 }
+
+.boton-gris {
+    @include m.boton(v.$gris, inline-block);
+}
+
+.boton-gris-block {
+    @include m.boton(v.$gris, block);
+}
+
+.boton-gris-oscuro {
+    @include m.boton(v.$grisOscuro, inline-block);
+}
+
+.boton-gris-oscuro-block {
+    @include m.boton(v.$grisOscuro, block);
+}

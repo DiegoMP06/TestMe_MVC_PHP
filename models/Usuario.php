@@ -30,12 +30,12 @@ class Usuario extends ActiveRecord {
     protected $password;
     protected $descripcion;
     protected $imagen;
+    protected $perfil;
     protected $token;
     protected $creado;
     protected $confirmado;
     protected $admin;
     protected $superadmin;
-    protected $perfilId;
 
     public function __construct($args = []) {
         $this->id = $args["id"] ?? null;
@@ -47,12 +47,12 @@ class Usuario extends ActiveRecord {
         $this->password = $args["password"] ?? "";
         $this->descripcion = $args["descripcion"] ?? "";
         $this->imagen = $args["imagen"] ?? "";
+        $this->perfil = $args["perfil"] ?? '{"email": false, "telefono": false, "descripcion": false, "creado": false}';
         $this->token = $args["token"] ?? "";
         $this->creado = $args["creado"] ?? date("Y-m-d");
         $this->confirmado = $args["confirmado"] ?? 0;
         $this->admin = $args["admin"] ?? 0;
         $this->superadmin = $args["superadmin"] ?? 0;
-        $this->perfilId = $args["perfilId"] ?? null;
     }
 
     public function validarLogin() {
@@ -61,10 +61,94 @@ class Usuario extends ActiveRecord {
         }
         
         if(!$this->password){
-            self::setAlerta("password", "La Contraseña Es Obligatorio");
+            self::setAlerta("password", "La Contraseña Es Obligatoria");
         }
 
         return self::getAlertas();
+    }
+
+    public function validarCrear($confirmacion) {
+        if(!$this->nombre) {
+            self::setAlerta("nombre", "El Nombre es Obligatorio");
+        }
+
+        if(!$this->apellido) {
+            self::setAlerta("apellido", "El Apellido es Obligatorio");
+        }
+
+        foreach(str_split($this->usuario) as $char) {
+            if(preg_match("/[0-9]/", $char) || ($char === "-" || $char === "_")) continue;
+            if(!preg_match("/[a-z]/", $char)) {
+                self::setAlerta("usuario", "Formato No valido");
+                break;
+            }
+        }
+
+        if(!$this->usuario) {
+            self::setAlerta("usuario", "El Usuario es Obligatorio");
+        }
+
+        if(!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+            self::setAlerta("email", "Formato No Valido");
+        }
+
+        if(!$this->email) {
+            self::setAlerta("email", "El Correo Elecronico es Obligatorio");
+        }
+        
+        foreach(str_split($this->telefono) as $num) {
+            if(!preg_match("/[0-9]/", $num)) {
+                self::setAlerta("telefono", "Formato No Valido");
+                break;
+            }
+        }
+
+        if(strlen($this->telefono) !== 10) {
+            self::setAlerta("telefono", "Formato No Valido");
+        }
+
+        if(!$this->telefono) {
+            self::setAlerta("telefono", "El Numero de Telefono es Obligatorio");
+        }
+
+        if(strlen($this->password) < 6) {
+            self::setAlerta("password", "Las Contraseñas Deben tener Por lo Menos 6 Caracteres");
+        }
+
+        if($this->password !== $confirmacion) {
+            self::setAlerta("password", "Las Contraseñas No Coinciden");
+        }
+        
+        if(!$this->password || !$confirmacion) {
+            self::setAlerta("password", "Las Contraseñas son Obligatorias");
+        }
+
+        return self::getAlertas();
+    }
+
+    public function crearToken() {
+        $this->token = uniqid(rand(1000000, 9999999));
+    }
+
+    public function hashPassword() {
+        $this->password = password_hash($this->password, PASSWORD_BCRYPT);
+    }
+
+    public function verificarPassword($passwordHash) {
+        $password = password_verify($this->password, $passwordHash);
+        return $password;
+    }
+
+    public function verificarLogin(Usuario $auth) {
+        if($auth->getConfirmado() === "1") {
+            if($this->verificarPassword($auth->getPassword())) {
+                return true;
+            } else {
+                self::setAlerta("password", "Contraseña Incorrecta");
+            }
+        } else {
+            self::setAlerta("email", "Usuario No Confirmado");
+        }
     }
 
     public function getId() {
@@ -139,6 +223,14 @@ class Usuario extends ActiveRecord {
         $this->imagen = $imagen;
     }
 
+    public function getPerfil() {
+        return $this->perfil;
+    }
+
+    public function setPerfil($perfil) {
+        $this->perfil = $perfil;
+    }
+
     public function getToken() {
         return $this->token;
     }
@@ -177,13 +269,5 @@ class Usuario extends ActiveRecord {
 
     public function setSuperadmin($superadmin) {
         $this->superadmin = $superadmin;
-    }
-
-    public function getPerfilId() {
-        return $this->perfilId;
-    }
-
-    public function setPerfilId($perfilId) {
-        $this->perfilId = $perfilId;
     }
 }

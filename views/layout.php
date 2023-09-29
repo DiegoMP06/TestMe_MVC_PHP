@@ -10,34 +10,54 @@
 <body>
     <header class="header">
         <div class="contenedor">
-            <a class="logo" href="/">Test Me</a>
+            <a class="logo" href="<?php echo isset($_SESSION["login"]) ? '/inicio' : '/' ?>">Test Me</a>
 
             <nav class="navegacion">
-                <a href="/">Iniciar Sesion</a>
-                <a href="/crear">Crear Cuenta</a>
+                <?php if(isset($_SESSION["login"])): ?>
+                    <a href="#">Enlace</a>
+                    <a href="#">Enlace</a>
+                    <a href="#">Enlace</a>
+                    <a href="#">Enlace</a>
+                    <a href="#">
+                        <img src="/" alt="">
+                    </a>
+                <?php else: ?>
+                    <a href="/">Iniciar Sesion</a>
+                    <a href="/crear">Crear Cuenta</a>
+                <?php endif; ?>
             </nav>
 
-            <div class="menu"></div>
+            <div class="menu" id="menu-navegacion"></div>
         </div>
     </header>
-
+    
     <main>
+        <div class="encabezado"></div>
         <?php echo $contenido ?? ""; ?>
     </main>
     
     <footer class="footer">
         <div class="contenedor">
             <nav class="navegacion">
-                <a href="/">Iniciar Sesion</a>
-                <a href="/crear">Crear Cuenta</a>
+            <?php if(isset($_SESSION["login"])): ?>
+                    <a href="#">Enlace</a>
+                    <a href="#">Enlace</a>
+                    <a href="#">Enlace</a>
+                    <a href="#">Enlace</a>
+                    <a href="#">Enlace</a>
+                <?php else: ?>
+                    <a href="/">Iniciar Sesion</a>
+                    <a href="/crear">Crear Cuenta</a>
+                <?php endif; ?>
             </nav>
 
             <a href="/" class="logo">Test Me</a>
         </div>
 
-        <p class="copyrigth">Todos los Derechos Resrvados <?php echo date("Y"); ?> &copy;</p>
+        <p class="copyrigth">Todos los Derechos Reservados <?php echo date("Y"); ?> &copy;</p>
     </footer>
 
     <?php echo $script ?? ""; ?>
+    <script src="/build/js/layout/navegacion.js"></script>
 </body>
 </html>

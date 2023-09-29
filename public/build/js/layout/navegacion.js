@@ -1,0 +1,1 @@
+function menuNavegacion(){document.querySelector("#menu-navegacion").addEventListener("click",activarMenuNavegacion)}function activarMenuNavegacion(e){e.target.classList.toggle("menu-activo");const n=document.body;document.querySelector(".header").classList.toggle("header-fijo"),n.classList.toggle("no-scroll")}document.addEventListener("DOMContentLoaded",()=>{menuNavegacion()});

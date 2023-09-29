@@ -1,0 +1,37 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.formulario-test {
+    background-color: darken($color: v.$grisOscuro, $amount: 10%);
+    border-radius: 1rem;
+    padding: 2rem;
+
+    legend {
+        color: v.$grisClaro;
+        font-size: 1.8rem;
+    }
+
+    .radio {
+        margin: 2rem 0 0 2rem;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        gap: 3rem;
+
+        label {
+            cursor: pointer;
+            font-weight: 400;
+            font-size: 2rem;
+            color: v.$blanco;
+            margin: 0;
+            width: 100%;
+        }
+
+        input {
+            cursor: pointer;
+            width: 2rem;
+            height: 2rem;
+        }
+    }
+
+}
