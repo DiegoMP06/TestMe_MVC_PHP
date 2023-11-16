@@ -1,3 +1,5 @@
+<?php include_once __DIR__ . "/../templates/header.php" ?>
+
 <div class="contenedor seccion">
     <h1 class="nombre-pagina">Inicia Sesión</h1>
     <p class="descripcion-pagina">Ya Tienes una Cuenta Inicia Sesion</p>
@@ -18,3 +20,5 @@
         <input type="submit" value="Iniciar Sesión" class="boton-azul-block">
     </form>
 </div>
+
+<?php include_once __DIR__ . "/../templates/footer.php" ?>

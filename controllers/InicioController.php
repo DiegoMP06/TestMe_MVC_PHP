@@ -2,52 +2,56 @@
 namespace Controller;
 
 use Model\Categoria;
+use Model\Sala;
 use Model\Test;
-use Model\TestAutor;
+use Model\Usuario;
 use MVC\Router;
 
 class InicioController {
+
+    public static function salas(Router $router) {
+        session_start();
+        isAuth();
+
+        $salas = Sala::whereAll("publico", "1");
+        $usuarios = Usuario::whereAll("admin", "1");
+
+        $router->render("inicio/salas", [
+            "salas"=> $salas,
+            "usuarios"=> $usuarios,
+            "enlace" => [
+                "url" => "/inicio",
+                "texto" => "Ir al Inicio"
+            ]
+        ]);
+    }
+
     public static function index(Router $router) {
+        session_start();
+        isAuth();
 
         $categorias = Categoria::all();
-
-        $columnas = [
-            "tests.id",
-            "tests.nombre",
-            "tests.descripcion as descripcionTest",
-            "tests.numPreguntas",
-            "tests.visitas",
-            "tests.creado",
-            "tests.actualizado",
-            "tipostest.nombre as tipo",
-            "categorias.nombre  as categoria",
-            "CONCAT(usuarios.nombre ,' ', usuarios.apellido) as autor",
-            "usuarios.usuario"
-        ];
-
-        $joins = [
-            "LEFT OUTER JOIN tipostest ON tests.tipoTestId = tipostest.Id",
-            "LEFT OUTER JOIN categorias ON tests.categoriaId = categorias.id",
-            "LEFT OUTER JOIN usuarios ON tests.usuarioId = usuarios.id"
-        ];
+        $usuarios = Usuario::whereAll("admin", "1");
+        $tests = [];
 
         foreach($categorias  as $categoria) {
-            $testAutor[$categoria->getNombre()] = TestAutor::Join($columnas, $joins, [
-                [
-                    "columna" => "tests.publico",
-                    "valor" => "1"
-                ],
-                [
-                    "comparacion" => "AND",
-                    "columna" => "tests.categoriaId",
-                    "valor" => $categoria->getId()
-                ]
-            ]);
+            $testCategoria = Test::whereLimit("categoriaId", $categoria->getId(), 10);
+
+            foreach($testCategoria as $test) {
+                if($test->getPublico()) {
+                    $tests[$categoria->getNombre()][] = $test;
+                }
+            }
         }
         
         $router->render("inicio/index", [
-            "testAutor" => $testAutor,
-            "categorias" => $categorias
+            "categorias" => $categorias,
+            "tests" => $tests,
+            "usuarios" => $usuarios,
+            "enlace" => [
+                "url" => "/inicio/salas",
+                "texto" => "Buscar Salas"
+            ]
         ]);
     }
 }

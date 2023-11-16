@@ -21,21 +21,21 @@ class Usuario extends ActiveRecord {
         "perfilId",
     ];
 
-    protected $id;
-    protected $nombre;
-    protected $apellido;
-    protected $usuario;
-    protected $email;
-    protected $telefono;
-    protected $password;
-    protected $descripcion;
-    protected $imagen;
-    protected $perfil;
-    protected $token;
-    protected $creado;
-    protected $confirmado;
-    protected $admin;
-    protected $superadmin;
+    public $id;
+    public $nombre;
+    public $apellido;
+    public $usuario;
+    public $email;
+    public $telefono;
+    public $password;
+    public $descripcion;
+    public $imagen;
+    public $perfil;
+    public $token;
+    public $creado;
+    public $confirmado;
+    public $admin;
+    public $superadmin;
 
     public function __construct($args = []) {
         $this->id = $args["id"] ?? null;
@@ -137,18 +137,6 @@ class Usuario extends ActiveRecord {
     public function verificarPassword($passwordHash) {
         $password = password_verify($this->password, $passwordHash);
         return $password;
-    }
-
-    public function verificarLogin(Usuario $auth) {
-        if($auth->getConfirmado() === "1") {
-            if($this->verificarPassword($auth->getPassword())) {
-                return true;
-            } else {
-                self::setAlerta("password", "Contraseña Incorrecta");
-            }
-        } else {
-            self::setAlerta("email", "Usuario No Confirmado");
-        }
     }
 
     public function getId() {

@@ -1,0 +1,98 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.contenido-sala {
+    display: grid;
+    gap: 2rem;
+
+    .seccion-sala {
+        background-color: rgba($color: v.$azulClaro, $alpha: .4);
+        padding: 1rem 2rem;
+    }
+
+    .seccion-flex {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .descripcion {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        @include m.desktop{
+            flex-direction: row;
+            align-items: center;
+        }
+
+        blockquote {
+            margin: 0;
+            flex: 1;
+        }
+        
+        button {
+            flex: 1;
+            
+            @include m.desktop{
+                padding: .5rem;
+                font-size: 1.4rem;
+                flex: 0 0 10rem;
+            }
+        }
+    }
+
+    .opciones-hover {
+        position: relative;
+
+        .opciones {
+            display: none;
+        }
+
+        &:hover {
+            .opciones {
+                display: grid;
+                gap: 1rem;
+                position: absolute;
+                background-color: v.$grisClaro;
+                right: 1rem;
+                top: 0;
+                z-index: 20;
+                padding: 1rem;
+
+                .opcion {
+                    display: block;
+                    min-width: 20rem;
+                    @include m.boton(v.$azulClaro, block);
+                    padding: .5rem;
+                    font-size: 1.4rem;
+                    border-radius: .5rem;
+                }
+            }
+        }
+    }
+
+    .panel-sala {
+        display: grid;
+        gap: 2rem;
+
+        @include m.tablet{
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include m.bigDesktop{
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .accion {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: rgba($color: v.$azulClaro, $alpha: .4);
+            padding: 2rem;
+
+            h4 {
+                margin: 0 0 2rem 0;
+            }
+        }
+    }
+}

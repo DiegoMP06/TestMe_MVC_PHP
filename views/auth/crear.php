@@ -1,3 +1,5 @@
+<?php include_once __DIR__ . "/../templates/header.php" ?>
+
 <div class="contenedor seccion">
     <h1 class="nombre-pagina">Inicia Creando Una Cuenta</h1>
     <p class="descripcion-pagina">Crea una Cuenta para Disfrutar de Nuestros Test</p>
@@ -47,3 +49,5 @@
         <input type="submit" value="Crear Cuenta" class="boton-azul-block">
     </form>
 </div>
+
+<?php include_once __DIR__ . "/../templates/footer.php" ?>

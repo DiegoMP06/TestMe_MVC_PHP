@@ -1,0 +1,8 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.formulario-modal {
+    width: 95%;
+    max-width: 70rem;
+    margin: 2rem auto;
+}

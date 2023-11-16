@@ -1,0 +1,31 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.contenedor-salas {
+    display: grid;
+    gap: 2rem;
+    margin: 5rem 0;
+
+    @include m.tablet{
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include m.desktop{
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .sala {
+        background-color: lighten($color: v.$azul, $amount: 10%);
+        padding: 1rem;
+
+
+        h3 {
+            margin: 0 0 2rem 0;
+        }
+
+        p {
+            font-weight: 700;
+            font-size: 1.6rem;
+        }
+    }
+}

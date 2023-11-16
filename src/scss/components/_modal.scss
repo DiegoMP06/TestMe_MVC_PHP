@@ -1,0 +1,27 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.modal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba($color: v.$negro, $alpha: 50%);
+
+    .menu {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+    }
+
+    .contenido-modal {
+        position: relative;
+        top: 50%;
+        background-color: v.$grisOscuro;
+        transform: translateY(-50%);
+        padding: 2rem;
+        max-height: 80vh;
+        overflow: auto;
+    }
+}

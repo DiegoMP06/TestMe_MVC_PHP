@@ -2,6 +2,7 @@
 
 .formulario {
     max-width: 70rem;
+    width: 95%;
     margin: 5rem auto;
 
     .campo{
@@ -22,11 +23,15 @@
             background-color: v.$gris;
             padding: .75rem;
             width: 100%;
-            border-radius: 1rem;
+            border-radius: .5rem;
         
             &::placeholder{
                 color: lighten($color: v.$grisClaro, $amount: 10%);
             }
+        }
+
+        textarea {
+            height: 15rem;
         }
     }
 }

@@ -1,0 +1,35 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.formulario-crud-sala {
+    background-color: darken($color: v.$gris, $amount: 20%);
+    padding: 2rem;
+
+    .campo {
+        label, p {
+            background: linear-gradient(45deg, v.$naranja, lighten(v.$rojoClaro, 10%));
+            color: transparent;
+            background-clip: text;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .inputs {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+
+            .radio {
+                display: flex;
+                gap: 1rem;
+
+                label {
+                    color: v.$grisClaro;
+                    font-size: 1.6rem;
+                    font-weight: 400;
+                    margin: 0;
+                }
+            }
+        }
+    }
+}

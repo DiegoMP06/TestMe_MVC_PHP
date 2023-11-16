@@ -1,47 +1,72 @@
-<div class="contenido contenido-completo seccion" id="contenido">
+<div class="contenido">
     <?php include "aside.php" ?>
+
     <section class="contenido-principal">
-        <h1 class="nombre-pagina">Test Me</h1>
-        <p class="descripcion-pagina">Los Mejores Test Educativos</p>
+        <?php include_once __DIR__ . "/../templates/header.php" ?>
 
-        <?php foreach($categorias as $categoria): ?>
-            <div class="categoria">
-                <h3><?php echo $categoria->getNombre() ?></h3>
+        <div class="contenedor">
+            <h1 class="nombre-pagina">Test Me</h1>
+            <p class="descripcion-pagina">Los Mejores Test Educativos</p>
 
-                <?php if(empty($testAutor[$categoria->getNombre()])): ?>
-                    <h4 class="descripcion-pagina">No Hay Tests De esta Categoria</h4>
-                <?php else: ?>
-                    <a class="ver-mas" href="/categoria?id=<?php echo $categoria->getId() ?>">Ver Mas</a>
+            <div class="inicio-tests">
 
-                    <div class="tests">
-                        <?php foreach($testAutor[$categoria->getNombre()] as $test): ?>
-                            <a href="/test?id=<?php echo $test->getId() ?>" class="test">
-                                <h4 class="nombre"><?php echo $test->getNombre() ?></h4>
-                                
-                                <ul class="caracteristicas">
-                                    <li>Numero de Preguntas: <span><?php echo $test->getNumPreguntas() ?></span></li>
-                                    <li>Visitas: <span><?php echo $test->getVisitas() ?></span></li>
-                                    <li>Creado: <span><?php echo $test->getCreado() ?></span></li>
-                                    <?php if(!is_null($test->getActualizado())): ?>
-                                        <li>Ultima Actualizacion: <span><?php echo $test->getActualizado() ?></span></li>
-                                    <?php endif ?>
-                                    <li>Tipo: <span><?php echo $test->getTipo() ?></span></li>
-                                    <li>Categoria: <span><?php echo $test->getCategoria() ?></span></li>
-                                    <li>Autor: <span><?php echo $test->getAutor() . " '" . $test->getUsuario() . "'" ?></span></li>
-                                </ul>
+                <?php foreach($categorias as $categoria): ?>
 
-                                <p class="descripcion"><?php echo $test->getDescripcionTest() ?></p>
-                            </a>
-                        <?php endforeach ?>
+                    <div class="categoria">
+
+                        <div class="acciones-categoria">
+                            <h3><?php echo sanitizar($categoria->getNombre()) ?></h3>
+
+                            <?php if(isset($tests[$categoria->getNombre()])): ?>
+                                <a href="/inicio/categorias?id=<?php echo $categoria->getId() ?>" class="ver-mas">Ver Mas</a>
+                            <?php endif ?>
+                            
+                        </div>
+
+                        <div class="tests-categoria">
+
+                            <?php if(isset($tests[$categoria->getNombre()])): 
+                                foreach($tests[$categoria->getNombre()] as $test): ?>
+
+                                <a href="/edu/test?url=<?php echo sanitizar($test->getUrl()) ?>" class="test">
+                                    <h3><?php echo sanitizar($test->getNombre()) ?></h3>
+
+                                    <ul class="caracteristicas">
+                                        <li><?php echo sanitizar($test->getNumPreguntas()) ?> Preguntas</li>
+
+                                        <?php foreach($usuarios as $usuario): 
+
+                                            if($test->getUsuarioId() === $usuario->getId()): ?>
+
+                                                <li>Creado por <?php echo sanitizar($usuario->getUsuario()) ?></li>
+
+                                            <?php endif;
+
+                                        endforeach; ?>
+
+                                    </ul>
+
+                                </a>
+
+                            <?php endforeach;
+
+                            else: ?>
+
+                                <p class="sin-tests">Categoria Vacia</p>
+
+                            <?php endif; ?>
+
+                        </div>
+
                     </div>
-                <?php endif ?>
+
+                <?php endforeach ?>              
+
             </div>
-        <?php endforeach ?>
+
+        </div>
+        <?php include_once __DIR__ . "/../templates/footer.php" ?>
+
     </section>
+
 </div>
-
-<?php
-
-$script = '
-<script src="/build/js/layout/aside.js"></script>
-';

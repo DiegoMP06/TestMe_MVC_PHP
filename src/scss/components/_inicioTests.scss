@@ -1,0 +1,58 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.inicio-tests {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    display: grid;
+    gap: 2rem;
+
+    .categoria {
+        display: grid;
+        gap: 3rem;
+        background-color: v.$grisOscuro;
+        padding: 1rem;
+
+
+        .acciones-categoria {
+            display: flex;
+            gap: 2rem;
+            flex-direction: column;
+
+            @include m.desktop{
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            h3 {
+                margin: 0;
+            }
+        }
+    }
+}
+
+
+.tests-categoria {
+    display: flex;
+    overflow: auto;
+    gap: 2rem;
+    padding: 2rem 0;
+
+    .test {
+        flex: 0 0 40rem;
+        background-color: v.$gris;
+        padding: 1rem;
+        display: block;
+
+        h3 {
+            margin: 0;
+        }
+    }
+
+    .sin-tests {
+        margin: 0;
+        font-size: 2rem;
+        font-weight: 700;
+    }
+}

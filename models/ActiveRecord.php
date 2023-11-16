@@ -6,7 +6,7 @@ class ActiveRecord {
     protected static $tabla = "";
     protected static $columnasDB = [];
     protected static $alertas = [];
-    protected $id;
+    public $id;
 
     public static function setDb($db){
         self::$db = $db;
@@ -42,14 +42,11 @@ class ActiveRecord {
     }
 
     public function atributos(){
-        $columnasNull = [
-            "perfilId"
-        ];
         $atributos = [];
 
         foreach (static::$columnasDB as $columna) {
             if ($columna === "id") continue;
-            if (in_array($columna, $columnasNull) && is_null($this->$columna)) continue;
+            if(is_null($this->$columna)) continue;
             $atributos[$columna] = $this->$columna;
         }
 
@@ -121,22 +118,18 @@ class ActiveRecord {
     }
 
     public function eliminar(){
-        $query = "DELETE FROM " . static::$tabla . " WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
+        $query = "DELETE FROM " . static::$tabla . " WHERE id = '" . self::$db->escape_string($this->id) . "' LIMIT 1";
         $resultado = self::$db->query($query);
 
         return $resultado;
     }
 
-    public static function consultarSQL($query, $object = true){
+    public static function consultarSQL($query){
         $resultado = self::$db->query($query);
         $array = [];
 
         while ($registro = $resultado->fetch_assoc()) {
-            if($object){
-                $array[] = static::crearObjeto($registro);
-            }else{
-                $array[] = $registro;
-            }
+            $array[] = static::crearObjeto($registro);
         }
 
         $resultado->free();
@@ -144,23 +137,23 @@ class ActiveRecord {
         return $array;
     }
 
-    public static function all($object = true){
+    public static function all(){
         $query = "SELECT * FROM " . static::$tabla;
-        $resultado = self::consultarSQL($query, $object);
+        $resultado = self::consultarSQL($query);
 
         return $resultado;
     }
 
-    public static function find($id, $object = true){
-        $query = "SELECT * FROM " . static::$tabla . " WHERE id = " . self::$db->escape_string($id) . " LIMIT 1";
-        $resultado = self::consultarSQL($query, $object);
+    public static function find($id){
+        $query = "SELECT * FROM " . static::$tabla . " WHERE id = '" . self::$db->escape_string($id) . "' LIMIT 1";
+        $resultado = self::consultarSQL($query);
 
         return array_shift($resultado);
     }
 
-    public static function get($limite, $object = true){
+    public static function get($limite){
         $query = "SELECT * FROM " . static::$tabla . " LIMIT {$limite}";
-        $resultado = self::consultarSQL($query, $object);
+        $resultado = self::consultarSQL($query);
 
         return $resultado;
     }
@@ -171,13 +164,19 @@ class ActiveRecord {
         return array_shift($resultado);
     }
 
+    public static function whereLimit($columna, $valor, $limite){
+        $query = "SELECT * FROM " . static::$tabla . " WHERE {$columna} = '" . self::$db->escape_string($valor) ."' LIMIT {$limite}";
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
+
     public static function whereAll($columna, $valor){
         $query = "SELECT * FROM " . static::$tabla . " WHERE {$columna} = '" . self::$db->escape_string($valor) ."'";
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
 
-    public static function Join($columnas = [], $joins = [], $comparaciones = [], $object = true){
+    public static function Join($columnas = [], $joins = [], $comparaciones = []){
 
         $where = [];
 
@@ -199,7 +198,7 @@ class ActiveRecord {
         $query .= " FROM " . static::$tabla . " ";
         $query .= join(" ", $joins) . " ";
         if(!empty($comparaciones)) $query .= " WHERE " . join(" ", $where);
-        $resultado = self::consultarSQL($query, $object);
+        $resultado = self::consultarSQL($query);
 
         return $resultado;
     }

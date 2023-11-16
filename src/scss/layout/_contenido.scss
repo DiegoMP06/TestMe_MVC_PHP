@@ -1,0 +1,48 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.contenido {
+    margin-top: 14rem;
+
+    @include m.tablet{
+        margin-top: 0;
+        display: flex;
+        height: 100vh;
+        
+        .sidebar {
+            flex: 0 0 30rem;
+
+            @include m.desktop{
+                flex: 0 0 40rem;
+            }
+        }
+    
+        .contenido-principal {
+            flex: 1;
+            overflow: auto;
+            
+            .header {
+                left: 30rem;
+                @include m.desktop{
+                    left: 40rem;
+                }
+            }
+        }
+    }
+
+    .contenido-principal {
+        padding-top: 3rem;
+
+        @include m.tablet{
+            padding-top: 0;
+        }
+    }
+
+    .encabezado {
+        min-height: 0;
+
+        @include m.tablet{
+            min-height: 10rem;
+        }
+    }
+}

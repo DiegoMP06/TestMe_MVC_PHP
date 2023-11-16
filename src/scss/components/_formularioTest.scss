@@ -5,33 +5,39 @@
     background-color: darken($color: v.$grisOscuro, $amount: 10%);
     border-radius: 1rem;
     padding: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 5rem;
 
-    legend {
-        color: v.$grisClaro;
-        font-size: 1.8rem;
+    p {
+        font-size: 2rem;
+        font-weight: 700;
     }
 
-    .radio {
-        margin: 2rem 0 0 2rem;
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: flex-end;
-        gap: 3rem;
+    .test-formulario {
+        margin-bottom: 2rem;
+
+        .campo-radio {
+            margin-bottom: 2rem;
+
+            &:last-of-type() {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .opciones-test {
+        margin-left: 2rem;
+        display: grid;
+        gap: 1rem;
+
+        .radio { 
+            display: flex;
+            gap: 1rem;
+        }
 
         label {
-            cursor: pointer;
-            font-weight: 400;
-            font-size: 2rem;
-            color: v.$blanco;
-            margin: 0;
-            width: 100%;
-        }
-
-        input {
-            cursor: pointer;
-            width: 2rem;
-            height: 2rem;
+            color: v.$grisClaro;
+            font-size: 1.6rem;
         }
     }
-
 }

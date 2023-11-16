@@ -7,6 +7,22 @@ function debuguear($variable){
     exit;
 }
 
+function sanitizar($html) {
+    return htmlspecialchars($html);
+}
+
+function isAuth() {
+    if(!$_SESSION["login"]) {
+        header("Location: /");
+    }
+}
+
+function isAdmin() {
+    if(!$_SESSION["login"] || !$_SESSION["admin"]) {
+        header("Location: /inicio");
+    }
+}
+
 function crearAlerta($alerta, $tipo) {
     return "<p class='alerta {$tipo}'>{$alerta}</p>";
 }
@@ -23,4 +39,9 @@ function is404($evaluacion) {
     if(!$evaluacion) {
         header("Location: /error");
     }
+}
+
+function hiddenString($str, $start = 1, $end = 1){
+    $len = strlen($str);
+    return substr($str, 0, $start) . str_repeat('*', $len - ($start + $end)) . substr($str, $len - $end, $end);
 }

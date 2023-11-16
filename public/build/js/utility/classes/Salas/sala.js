@@ -1,0 +1,1 @@
+export default class Sala{constructor(a){this.sala=a}}

@@ -20,23 +20,33 @@ class LoginController{
 
                 if(is_null($auth)) {
                     Usuario::setAlerta("email", "Usuario No Encontrado");
-                } elseif($usuario->verificarLogin($auth)) {
-                    $_SESSION["login"] = true;
-                    $_SESSION["idUsuario"] = true;
-                    $_SESSION["nombre"] = $auth->getNombre() . " " . $auth->getApellido();
-                    $_SESSION["usuario"] = $auth->getUsuario();
-                    $_SESSION["email"] = $auth->getEmail();
-                    $_SESSION["imagen"] = $auth->getImagen();
-
-                    if($auth->getAdmin() === "1") {
-                        $_SESSION["admin"] = true;
-                    } elseif($auth->getSuperadmin() === "1") {
-                        $_SESSION["superadmin"] = true;
-                        header("Location: /admin");
+                } else {
+                    if(!$auth->getConfirmado()) {
+                        Usuario::setAlerta("email", "Usuario No Confirmado");
                     }
 
-                    header("Location: /inicio");
-                }
+                    if(empty(Usuario::getAlertas())) {
+                        if($usuario->verificarPassword($auth->getPassword())) {
+                            $_SESSION["login"] = true;
+                            $_SESSION["id"] = $auth->getId();
+                            $_SESSION["nombre"] = $auth->getNombre() . " " . $auth->getApellido();
+                            $_SESSION["usuario"] = $auth->getUsuario();
+                            $_SESSION["email"] = $auth->getEmail();
+                            $_SESSION["imagen"] = $auth->getImagen();
+
+                            if($auth->getAdmin() === "1") {
+                                $_SESSION["admin"] = true;
+                            } elseif($auth->getSuperadmin() === "1") {
+                                $_SESSION["superadmin"] = true;
+                                header("Location: /admin");
+                            }
+
+                            header("Location: /inicio");
+                        } else {
+                            Usuario::setAlerta("password", "Contraseña Incorrecta");
+                        }
+                    }
+                } 
             }
         }
 
@@ -129,5 +139,12 @@ class LoginController{
         $usuario->guardar();
 
         $router->render("auth/confirmar");
+    }
+
+    public static function logout() {
+        session_start();
+        $_SESSION = [];
+
+        header("Location: /");
     }
 }

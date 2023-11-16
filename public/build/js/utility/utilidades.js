@@ -1,0 +1,1 @@
+export const RUTA_IMAGENES_USUARIOS="/imagenes/users/";export const RUTA_IMAGENES_CATEGORIA="/imagenes/categorias/";export function obtenerUrl(){const e=new URLSearchParams(window.location.search);return Object.fromEntries(e.entries()).url}export function limpiarHtml(e){for(;e.firstChild;)e.removeChild(e.firstChild)}

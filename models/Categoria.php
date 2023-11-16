@@ -10,10 +10,10 @@ class Categoria extends ActiveRecord {
         "descripcion",
     ];
 
-    protected $id;
-    protected $nombre;
-    protected $imagen;
-    protected $descripcion;
+    public $id;
+    public $nombre;
+    public $imagen;
+    public $descripcion;
 
     public function __construct($args = []) {
         $this->id = $args["id"] ?? null;
