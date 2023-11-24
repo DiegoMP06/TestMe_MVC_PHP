@@ -4,7 +4,7 @@ namespace Controller;
 use Model\Test;
 
 class APITestController {
-    public static function index() {
+    public static function test() {
         session_start();
         $url = $_GET["url"];
 

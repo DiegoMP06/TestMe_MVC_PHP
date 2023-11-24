@@ -4,7 +4,19 @@ namespace Controller;
 use Model\Categoria;
 
 class APICategoriaController {
-    public static function index() {
+    public static function categorias() {
+        $categorias = Categoria::all();
+
+        $resultado = [
+            "mensaje" => "Se Consultaron Las Categorias",
+            "tipo" => "exito",
+            "categorias" => $categorias
+        ];
+
+        echo json_encode($resultado);
+    }
+
+    public static function categoria() {
         $id = $_GET["id"];
         $categoria = Categoria::find($id);
 

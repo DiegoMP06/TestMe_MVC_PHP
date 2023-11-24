@@ -4,7 +4,19 @@ namespace Controller;
 use Model\TipoTest;
 
 class APITipoTestController {
-    public static function index() {
+    public static function tiposTests() {
+        $tiposTests = TipoTest::all();
+
+        $resultado = [
+            "mensaje" => "Se Consultaron Correctamente los Tipos de Test",
+            "tipo" => "exito",
+            "tiposTests" => $tiposTests
+        ];
+
+        echo json_encode($resultado);
+    }
+
+    public static function tipoTest() {
         $id = $_GET["id"];
         $tipoTest = TipoTest::find($id);
         

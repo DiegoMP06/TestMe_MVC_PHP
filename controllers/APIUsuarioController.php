@@ -19,7 +19,7 @@ class APIUsuarioController {
         echo json_encode($_SESSION);
     }
 
-    public static function index() {
+    public static function usuario() {
         $id = $_GET["id"];
         $usuario = Usuario::find($id);
 

@@ -4,7 +4,7 @@ namespace Controller;
 use Model\Sala;
 
 class APISalaController {
-    public static function index() {
+    public static function sala() {
         $url = $_GET["url"];
 
         $sala = Sala::where("url", $url);

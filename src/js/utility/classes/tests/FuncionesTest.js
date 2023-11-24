@@ -40,26 +40,6 @@ export default class FuncionesTest {
 
         asideContenedor.appendChild(autor);
         asideContenedor.appendChild(favorito);
-
-        this.modalesInformacion();
-    }
-
-    modalesInformacion() {
-        const infoTestBtn = document.querySelector("#informacion-test");
-        const tipoTestBtn = document.querySelector("#tipo-test");
-        const sobreCategoriaBtn = document.querySelector("#informacion-categoria");
-
-        infoTestBtn.addEventListener("click", () => {
-            this.crearModalSobreTest();
-        });
-
-        tipoTestBtn.addEventListener("click", () => {
-            this.crearModalTipoTest()
-        });
-
-        sobreCategoriaBtn.addEventListener("click", () => {
-            this.crearModalSobreCategoria()
-        });
     }
 
     crearModalSobreTest() {

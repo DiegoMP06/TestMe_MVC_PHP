@@ -1,1 +1,0 @@
-export default class FuncionesSala{static validarDescripcion(a){const{descripcion:e}=a;0!==e.trim().length?e.trim().length<50?alerta("La descripcion debe tener al menos 50 Caracteres",".contenido-modal form"):actualizarSala(a,"descripcion"):alerta("La descripcion es Obigatoria",".contenido-modal form")}}

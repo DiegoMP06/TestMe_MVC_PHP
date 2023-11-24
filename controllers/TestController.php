@@ -15,8 +15,17 @@ class TestController {
         if(is_null($test)) header("Location: /404");
         if(!$test->getPublico() && !($test->getUsuarioId() === $_SESSION["id"])) header("Location: /404");
 
-        $router->render("test/test", [
+        $router->render("test/edu", [
             "test" => $test
+        ]);
+    }
+
+    public static function crear(Router $router) {
+        session_start();
+        isAdmin();
+
+        $router->render("test/crear", [
+            
         ]);
     }
 }

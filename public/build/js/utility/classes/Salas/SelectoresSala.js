@@ -1,1 +1,0 @@
-export const contenedorSala=document.querySelector("#contenido-sala");

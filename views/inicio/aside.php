@@ -1,5 +1,4 @@
 <aside class="sidebar">
-
     <div class="aside-visible">
 
         <form class="formulario" method="get">
@@ -14,6 +13,7 @@
         </form>
 
     </div>
+    
     <?php include_once __DIR__ . "/../templates/acciones.php" ?>
 
 </aside>

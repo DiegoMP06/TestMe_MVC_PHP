@@ -63,12 +63,20 @@ $router->get("/test", [TestController::class, "test"]);
 $router->get("/edu/test", [TestController::class, "edu"]);
 
 // API
-$router->get("/api/test", [APITestController::class, "index"]);
-$router->get("/api/categorias", [APICategoriaController::class, "index"]);
-$router->get("/api/usuarios", [APIUsuarioController::class, "index"]);
+$router->get("/api/test", [APITestController::class, "test"]);
+$router->get("/api/tests", [APITestController::class, "tests"]);
+
+$router->get("/api/categoria", [APICategoriaController::class, "categoria"]);
+$router->get("/api/categorias", [APICategoriaController::class, "categorias"]);
+
+$router->get("/api/usuario", [APIUsuarioController::class, "usuario"]);
+
 $router->get("/api/session", [APIUsuarioController::class, "session"]);
-$router->get("/api/tipotest", [APITipoTestController::class, "index"]);
-$router->get("/api/sala", [APISalaController::class, "index"]);
+
+$router->get("/api/tipotest", [APITipoTestController::class, "tipoTest"]);
+$router->get("/api/tipostests", [APITipoTestController::class, "tiposTests"]);
+
+$router->get("/api/sala", [APISalaController::class, "sala"]);
 $router->post("/api/sala/actualizar", [APISalaController::class, "actualizar"]);
 
 $router->comprobarRutas();

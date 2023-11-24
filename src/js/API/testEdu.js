@@ -4,6 +4,7 @@ import TestBasico from "../utility/classes/tests/TestBasico.js";
 
 (function () {
     let funcionesTest;
+    const asideVisible = document.querySelector("#aside-visible");
 
     consultarTest();
 
@@ -24,8 +25,8 @@ import TestBasico from "../utility/classes/tests/TestBasico.js";
 
     async function consultarDatos(test) {
         try {
-            const urlCategoria = `/api/categorias?id=${test.categoriaId}`;
-            const urlUsuario = `/api/usuarios?id=${test.usuarioId}`;
+            const urlCategoria = `/api/categoria?id=${test.categoriaId}`;
+            const urlUsuario = `/api/usuario?id=${test.usuarioId}`;
             const urlTipoTest = `/api/tipotest?id=${test.tipoTestId}`;
 
             const [respuestaCategoria, respuestaUsuario, respuestaTipoTest] = await Promise.all([
@@ -45,10 +46,47 @@ import TestBasico from "../utility/classes/tests/TestBasico.js";
 
                 funcionesTest = new FuncionesTest(test, tipoTest, categoria, usuario);
                 agregarFormularioTest(test);
+                mostrarBotonesAside();
             }
         } catch (error) {
             console.error(error);
         }
+    }
+
+    function mostrarBotonesAside() {
+
+        const opciones = document.createElement("DIV");
+        opciones.classList.add("opciones");
+
+        const btnTest = document.createElement("BUTTON");
+        btnTest.textContent = "Informacion del Test";
+        btnTest.classList.add("boton-gris-block");
+
+        const btnTipoTest = document.createElement("BUTTON");
+        btnTipoTest.textContent = "Como Contestar el test";
+        btnTipoTest.classList.add("boton-gris-block");
+
+        const btnCategoria = document.createElement("BUTTON");
+        btnCategoria.textContent = "Informacion de la Categoria";
+        btnCategoria.classList.add("boton-gris-block");
+
+        btnTest.addEventListener("click", () => {
+            funcionesTest.crearModalSobreTest();
+        });
+
+        btnTipoTest.addEventListener("click", () => {
+            funcionesTest.crearModalTipoTest()
+        });
+
+        btnCategoria.addEventListener("click", () => {
+            funcionesTest.crearModalSobreCategoria()
+        });
+
+        opciones.appendChild(btnTest);
+        opciones.appendChild(btnTipoTest);
+        opciones.appendChild(btnCategoria);
+
+        asideVisible.appendChild(opciones);
     }
 
     function agregarFormularioTest(test) {
