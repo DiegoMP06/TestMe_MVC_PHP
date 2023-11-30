@@ -20,7 +20,7 @@ import UI from "../layout/UI.js";
         } catch (error) {
             console.error(error);
         }
-    }
+    } 
 
     function mostrarSala() {
         imprimirHtml();

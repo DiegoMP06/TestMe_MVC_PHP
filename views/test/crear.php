@@ -11,4 +11,7 @@
 </div>
 
 <?php 
-$script .= '<script type="module" src="/build/js/API/testCrear.js"></script>';
+$script .= '
+<script type="module" src="/build/js/API/testCrear.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+';

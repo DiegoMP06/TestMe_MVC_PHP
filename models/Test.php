@@ -3,7 +3,7 @@ namespace Model;
 
 class Test extends ActiveRecord {
     protected static $tabla = "tests";
-    protected static $columnaDB = [
+    protected static $columnasDB = [
         "id",
         "nombre",
         "url",
@@ -49,12 +49,17 @@ class Test extends ActiveRecord {
         $this->preguntas = $args["preguntas"] ?? "";
         $this->numOpciones = $args["numOpciones"] ?? "";
         $this->numPreguntas = $args["numPreguntas"] ?? "";
-        $this->visitas = $args["visitas"] ?? "";
-        $this->creado = $args["creado"] ?? "";
-        $this->actualizado = $args["actualizado"] ?? "";
+        $this->visitas = $args["visitas"] ?? "0";
+        $this->creado = $args["creado"] ?? date("Y-m-d");
+        $this->actualizado = $args["actualizado"] ?? null;
+        $this->publico = $args["publico"] ?? "0";
         $this->categoriaId = $args["categoriaId"] ?? "";
         $this->tipoTestId = $args["tipoTestId"] ?? "";
         $this->usuarioId = $args["usuarioId"] ?? "";
+    }
+
+    public function establecerURL() {
+        $this->url = md5(uniqid(rand()));
     }
 
     public function getId(){

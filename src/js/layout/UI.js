@@ -32,6 +32,11 @@ export default class UI {
     }
 
     static crearModal(contenido) {
+        const modalPrevio = document.querySelector(".modal");
+        if(modalPrevio) {
+            modalPrevio.remove();
+        }
+
         const modalContenedor = document.createElement("DIV");
         modalContenedor.classList.add("modal");
 

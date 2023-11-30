@@ -90,6 +90,7 @@ class ActiveRecord {
         $query .= "')";
         $resultado = self::$db->query($query);
 
+
         if($id){
             return [
                 'resultado' => $resultado,

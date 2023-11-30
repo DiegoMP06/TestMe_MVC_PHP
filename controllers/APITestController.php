@@ -4,8 +4,35 @@ namespace Controller;
 use Model\Test;
 
 class APITestController {
+    public static function crear() {
+        isAdmin();
+
+        if($_SERVER["REQUEST_METHOD"] === "POST") {
+            $test = new Test($_POST);
+            $test->establecerURL();
+            $test->setUsuarioId($_SESSION["id"]);
+
+            $resultado = $test->guardar();
+
+            if($resultado) {
+                $respuesta = [
+                    "mensaje" => "El Test Se Creo Correctamente",
+                    "tipo" => "exito",
+                    "url" => $test->getUrl()
+                ];
+
+                echo json_encode($respuesta);
+                return;
+            }
+
+            $respuesta = [
+                "mensaje" => "Error al Crear El Test",
+                "tipo" => "error"
+            ];
+        }
+    }
+
     public static function test() {
-        session_start();
         $url = $_GET["url"];
 
         $test = Test::where("url", $url);

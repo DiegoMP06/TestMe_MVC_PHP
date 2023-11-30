@@ -64,6 +64,7 @@ $router->get("/edu/test", [TestController::class, "edu"]);
 
 // API
 $router->get("/api/test", [APITestController::class, "test"]);
+$router->post("/api/test/crear", [APITestController::class, "crear"]);
 $router->get("/api/tests", [APITestController::class, "tests"]);
 
 $router->get("/api/categoria", [APICategoriaController::class, "categoria"]);
