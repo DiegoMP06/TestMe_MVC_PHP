@@ -9,7 +9,10 @@ use Controller\APITestController;
 use Controller\APIUsuarioController;
 use Controller\APITipoTestController;
 use Controller\APICategoriaController;
+use Controller\APIFavoritoController;
 use Controller\APISalaController;
+use Controller\APIVisitaController;
+use Controller\PDFController;
 use Controller\SalaControlller;
 use Controller\UsuarioController;
 
@@ -62,6 +65,9 @@ $router->get("/test", [TestController::class, "test"]);
 
 $router->get("/edu/test", [TestController::class, "edu"]);
 
+// PDF
+$router->get("/pdf/visita", [PDFController::class, "visita"]);
+
 // API
 $router->get("/api/test", [APITestController::class, "test"]);
 $router->post("/api/test/crear", [APITestController::class, "crear"]);
@@ -79,5 +85,11 @@ $router->get("/api/tipostests", [APITipoTestController::class, "tiposTests"]);
 
 $router->get("/api/sala", [APISalaController::class, "sala"]);
 $router->post("/api/sala/actualizar", [APISalaController::class, "actualizar"]);
+
+$router->get("/api/favorito", [APIFavoritoController::class, "favorito"]);
+$router->post("/api/favorito/crear", [APIFavoritoController::class, "crear"]);
+$router->post("/api/favorito/eliminar", [APIFavoritoController::class, "eliminar"]);
+
+$router->post("/api/visita/crear", [APIVisitaController::class, "crear"]);
 
 $router->comprobarRutas();

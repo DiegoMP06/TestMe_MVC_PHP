@@ -5,6 +5,7 @@ use Model\Categoria;
 
 class APICategoriaController {
     public static function categorias() {
+        isAuth();
         $categorias = Categoria::all();
 
         $resultado = [
@@ -17,6 +18,7 @@ class APICategoriaController {
     }
 
     public static function categoria() {
+        isAuth();
         $id = $_GET["id"];
         $categoria = Categoria::find($id);
 

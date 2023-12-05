@@ -7,15 +7,15 @@ class Router
     protected array $getRoutes = [];
     protected array $postRoutes = [];
 
-    public function get($url, $fn){
+    public function get($url, $fn) {
         $this->getRoutes[$url] = $fn;
     }
 
-    public function post($url, $fn){
+    public function post($url, $fn) {
         $this->postRoutes[$url] = $fn;
     }
 
-    public function comprobarRutas(){
+    public function comprobarRutas() {
         $currentUrl = strtok($_SERVER["REQUEST_URI"], "?") ?? "/";
         $method = $_SERVER['REQUEST_METHOD'];
 
@@ -34,8 +34,7 @@ class Router
         }
     }
 
-    public function render($view, $datos = [])
-    {
+    public function render($view, $datos = []) {
         
         foreach ($datos as $key => $value) {
             $$key = $value;

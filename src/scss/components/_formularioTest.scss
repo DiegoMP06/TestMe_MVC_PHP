@@ -13,15 +13,11 @@
         font-weight: 700;
     }
 
-    .test-formulario {
+    .campo-radio {
         margin-bottom: 2rem;
 
-        .campo-radio {
-            margin-bottom: 2rem;
-
-            &:last-of-type() {
-                margin-bottom: 0;
-            }
+        &:last-of-type() {
+            margin-bottom: 0;
         }
     }
 

@@ -21,7 +21,7 @@
 
                             <h3 class="nombre"><?php echo $sala->getNombre() ?></h3>
                             <p class="num-profesores">Profesores: <?php echo $sala->getProfesores() ?> de <?php echo $sala->getProfesoresMax() ?></p>
-                            <p class="num-lumnos">Alumnos: <?php echo $sala->getAlumnos() ?> de <?php echo $sala->getAlumnosMax() ?></p>
+                            <p class="num-alumnos">Alumnos: <?php echo $sala->getAlumnos() ?> de <?php echo $sala->getAlumnosMax() ?></p>
 
                         </a>
 

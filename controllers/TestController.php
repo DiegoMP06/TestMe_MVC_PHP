@@ -14,13 +14,15 @@ class TestController {
         if(is_null($test)) header("Location: /404");
         if(!$test->getPublico() && !($test->getUsuarioId() === $_SESSION["id"])) header("Location: /404");
 
-        $router->render("test/edu", [
-            "test" => $test
-        ]);
+        $router->render("test/edu");
     }
 
-    public static function index() {
-        
+    public static function index(Router $router) {
+        isAdmin();
+        $tests = Test::whereAll("usuarioId", $_SESSION["id"]);
+        $router->render("test/index", [
+            "tests" => $tests
+        ]);
     }
 
     public static function test(Router $router) {
@@ -30,17 +32,12 @@ class TestController {
         if(is_null($test)) header("Location: /404");
         if((int) $test->getUsuarioId() !== (int) $_SESSION["id"]) header("Location: /404");
 
-        debuguear($test);
-
-        $router->render("test/test", []);
+        $router->render("test/test");
     }
 
     public static function crear(Router $router) {
-        session_start();
         isAdmin();
 
-        $router->render("test/crear", [
-            
-        ]);
+        $router->render("test/crear");
     }
 }

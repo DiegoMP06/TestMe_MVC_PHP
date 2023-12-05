@@ -16,7 +16,13 @@ class APIUsuarioController {
             return;
         }
 
-        echo json_encode($_SESSION);
+        $resultado = [
+            "mensaje" => "Se Consulto Correctamente",
+            "tipo" => "exito",
+            "session" => $_SESSION
+        ];
+
+        echo json_encode($resultado);
     }
 
     public static function usuario() {

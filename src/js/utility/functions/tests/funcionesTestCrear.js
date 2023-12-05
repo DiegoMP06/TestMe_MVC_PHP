@@ -1,10 +1,17 @@
-import TestBasico from "../../classes/tests/TestBasico.js";
 import { limpiarHtml } from "../../utilidades.js";
 import UI from "../../../layout/UI.js";
 import Test from "../../classes/tests/Test.js";
+import TestBasico from "../../classes/tests/TestBasico.js";
 import TestMedio from "../../classes/tests/TestMedio.js";
+import TestAvanzado from "../../classes/tests/TestAvanzado.js";
+import CrearTest from "./crearTest.js";
+import CrearTestBasico  from "./crearTestBasico.js";
+import CrearTestMedio from "./crearTestMedio.js";
+import CrearTestAvanzado from "./crearTestAvanzado.js";
 
-let test = new Test;
+export let test = new Test;
+let funcionesTest = new CrearTest;
+
 export const datos = {
     pagina: 1,
     minimo: 0,
@@ -44,12 +51,13 @@ export async function obtenerDatos() {
 }
 
 async function consultarCrear() {
-    const {nombre, descripcion, instrucciones, preguntas, opciones, numPreguntas, numOpciones, categoriaId, tipoTestId} = test;
+    const {nombre, descripcion, campos, instrucciones, preguntas, opciones, numPreguntas, numOpciones, categoriaId, tipoTestId} = test;
     const url = "/api/test/crear";
     const datos = new FormData();
 
     datos.append("nombre", nombre);
     datos.append("descripcion", descripcion);
+    datos.append("campos", JSON.stringify(campos));
     datos.append("instrucciones", JSON.stringify(instrucciones));
     datos.append("preguntas", JSON.stringify(preguntas));
     datos.append("opciones", JSON.stringify(opciones));
@@ -74,6 +82,11 @@ async function consultarCrear() {
     }
 }
 
+export function cambiarPagina(pagina) {
+    datos.pagina = pagina;
+    mostrarFormulario();
+}
+
 function mostrarOpcionesAside() {
     const opciones = document.createElement("DIV");
     opciones.classList.add("opciones");
@@ -83,7 +96,7 @@ function mostrarOpcionesAside() {
     btnPreguntas.classList.add("boton-gris-block");
 
     btnPreguntas.onclick = () => {
-        test.mostrarModalPreguntas();
+        funcionesTest.mostrarModalPreguntas();
     }
 
     const btnOpciones = document.createElement("BUTTON");
@@ -91,7 +104,7 @@ function mostrarOpcionesAside() {
     btnOpciones.classList.add("boton-gris-block");
 
     btnOpciones.onclick = () => {
-        test.mostrarModalOpciones();
+        funcionesTest.mostrarModalOpciones();
     }
     
     const btnInstrucciones = document.createElement("BUTTON");
@@ -99,12 +112,21 @@ function mostrarOpcionesAside() {
     btnInstrucciones.classList.add("boton-gris-block");
 
     btnInstrucciones.onclick = () => {
-        test.mostrarModalInstrucciones();
+        funcionesTest.mostrarModalInstrucciones();
+    }
+
+    const btnCampos = document.createElement("BUTTON");
+    btnCampos.textContent = "Administrar Campos Extra";
+    btnCampos.classList.add("boton-azul-block");
+
+    btnCampos.onclick = () => {
+        funcionesTest.mostrarModalCamposExtras();
     }
 
     opciones.appendChild(btnPreguntas)
     opciones.appendChild(btnOpciones)
     opciones.appendChild(btnInstrucciones)
+    opciones.appendChild(btnCampos);
 
     asideVisible.appendChild(opciones);
 }
@@ -246,8 +268,8 @@ function formulario1() {
 }
 
 function formulario2() {
-    test.formulario2(formulario);
-
+    funcionesTest.formulario2(formulario);
+    
     controles()
 }
 
@@ -353,7 +375,7 @@ function formulario3() {
         btnNuevaInstruccion.classList.add("boton-verde");
 
         btnNuevaInstruccion.onclick = e => {
-            test.validarInstruccion(e.target.parentElement, maximo);
+            funcionesTest.validarInstruccion(e.target.parentElement, maximo);
         }
 
         instruccionDiv.appendChild(campoMinimo);
@@ -413,13 +435,13 @@ function mostrarTest() {
 
     acciones.onclick = e => {
         if(e.target.id === "mostrar-preguntas") {
-            test.mostrarModalPreguntas();
+            funcionesTest.mostrarModalPreguntas();
         }
         if(e.target.id === "mostrar-opciones") {
-            test.mostrarModalOpciones();
+            funcionesTest.mostrarModalOpciones();
         }
         if(e.target.id === "mostrar-instrucciones") {
-            test.mostrarModalInstrucciones();
+            funcionesTest.mostrarModalInstrucciones();
         }
     }
 
@@ -520,6 +542,7 @@ function validarFormulario2() {
             }
             break;
         case 2:
+        case 3:
             if(preguntas.length !== opciones.length) {
                 UI.mostrarAlerta("Hubo Un Error Con La Cantida De Campos", formulario);
                 return;
@@ -529,9 +552,6 @@ function validarFormulario2() {
                 UI.mostrarAlerta("AL Menos Deben de Ser 5 Campos", formulario);
                 return;
             }
-            
-            break;
-        case 3:
             break;
         default:
             console.error("Hubo Un Error")
@@ -585,11 +605,15 @@ function crearTest(e) {
     switch (parseInt(e.target.value)) {
         case 1:
             test = new TestBasico;
+            funcionesTest = new CrearTestBasico;
             break;
         case 2:
             test = new TestMedio;
+            funcionesTest = new CrearTestMedio;
             break;
         case 3:
+            test = new TestAvanzado;
+            funcionesTest = new CrearTestAvanzado;
             break;
         default:
             console.error("Ocurrio un Error")

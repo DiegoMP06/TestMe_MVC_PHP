@@ -80,7 +80,7 @@ class ActiveRecord {
         }
     }
 
-    public function crear($id = false){
+    public function crear(){
         $atributos = $this->sanitizarAtributos();
         
         $query = "INSERT INTO " . static::$tabla . " (";
@@ -90,15 +90,10 @@ class ActiveRecord {
         $query .= "')";
         $resultado = self::$db->query($query);
 
-
-        if($id){
-            return [
-                'resultado' => $resultado,
-                'id' => self::$db->insert_id
-            ];
-        }
-
-        return $resultado;
+        return [
+            'resultado' => $resultado,
+            'id' => self::$db->insert_id
+        ];
     }
 
     public function actualizar(){
@@ -173,6 +168,22 @@ class ActiveRecord {
 
     public static function whereAll($columna, $valor){
         $query = "SELECT * FROM " . static::$tabla . " WHERE {$columna} = '" . self::$db->escape_string($valor) ."'";
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
+
+    public static function sql($args = [], $query) {
+        $sanitizados = [];
+        foreach($args as $key => $campo) {
+            $sanitizados[$key] = self::$db->escape_string($campo);
+        }
+
+        foreach($sanitizados as $i => $sanitizado) {
+            $query = str_replace(":" . $i, $sanitizado, $query);
+        }
+
+        $query = str_replace(":tabla:", static::$tabla, $query);
+
         $resultado = self::consultarSQL($query);
         return $resultado;
     }

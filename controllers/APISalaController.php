@@ -5,6 +5,7 @@ use Model\Sala;
 
 class APISalaController {
     public static function sala() {
+        isAdmin();
         $url = $_GET["url"];
 
         $sala = Sala::where("url", $url);
@@ -29,6 +30,7 @@ class APISalaController {
     }
 
     public static function actualizar() {
+        isAdmin();
         if($_SERVER["REQUEST_METHOD"] === "POST") {
             $sala = new Sala($_POST);
 

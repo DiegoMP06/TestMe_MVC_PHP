@@ -45,3 +45,15 @@ function hiddenString($str, $start = 1, $end = 1){
     $len = strlen($str);
     return substr($str, 0, $start) . str_repeat('*', $len - ($start + $end)) . substr($str, $len - $end, $end);
 }
+
+function formatearDescripcion($descripcion) {
+    $descripcion = explode("\n", $descripcion);
+
+    ob_start();
+    ?><blockquote><?php
+    foreach($descripcion as $linea) {
+        ?><p><?php echo sanitizar($linea); ?></p><?php 
+    }
+    ?></blockquote><?php
+    return ob_get_clean();
+}

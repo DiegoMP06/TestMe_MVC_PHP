@@ -1,5 +1,5 @@
 export default class UI {
-    static mostrarAlerta(mensaje, referencia, tipo = "error") {
+    static mostrarAlerta(mensaje, referencia, eliminar = true, tipo = "error") {
         let id = referencia.classList.value.replaceAll(" ", "-");
     
         const alertaPrevia = referencia.querySelector(`.alerta.alerta-${id}`);
@@ -14,7 +14,9 @@ export default class UI {
         
         referencia.appendChild(alerta);
         
-        this.eliminarAlerta(alerta);
+        if(eliminar) {
+            this.eliminarAlerta(alerta);
+        }
     }
 
     static eliminarAlerta(alerta) {

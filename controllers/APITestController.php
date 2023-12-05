@@ -33,6 +33,7 @@ class APITestController {
     }
 
     public static function test() {
+        isAuth();
         $url = $_GET["url"];
 
         $test = Test::where("url", $url);
@@ -49,6 +50,8 @@ class APITestController {
 
         $test->setPreguntas(json_decode($test->getPreguntas()));
         $test->setOpciones(json_decode($test->getOpciones()));
+        $test->setInstrucciones(json_decode($test->getInstrucciones()));
+        $test->setCampos(json_decode($test->getCampos()));
 
         $resultado = [
             "mensaje" => "Se consulto el Test",
