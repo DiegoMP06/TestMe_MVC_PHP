@@ -671,7 +671,7 @@ export default class CrearTest {
         UI.crearModal(contenido);
     }
 
-    crearMinioMaximoCampoExtra(checked, minimoMaximoDiv, atributos = {}) {
+    crearMinimoMaximoCampoExtra(checked, minimoMaximoDiv, atributos = {}) {
         limpiarHtml(minimoMaximoDiv);
 
         if (checked) {
@@ -812,12 +812,12 @@ export default class CrearTest {
             minimoMaximoDiv.classList.add("campo-minimo-maximo");
 
             minimoMaximoinp.oninput = e => {
-                this.crearMinioMMaximoCampoExtra(e.target.checked, minimoMaximoDiv);
+                this.crearMinimoMaximoCampoExtra(e.target.checked, minimoMaximoDiv);
             }
 
             setTimeout(() => {
                 if (id && minimoMaximoinp.checked) {
-                    this.crearMinioMaximoCampoExtra(minimoMaximoinp.checked, minimoMaximoDiv, campoObj.atributos);
+                    this.crearMinimoMaximoCampoExtra(minimoMaximoinp.checked, minimoMaximoDiv, campoObj.atributos);
                 }
             }, 0);
 

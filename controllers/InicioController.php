@@ -10,7 +10,6 @@ use MVC\Router;
 class InicioController {
 
     public static function salas(Router $router) {
-        session_start();
         isAuth();
 
         $salas = Sala::whereAll("publico", "1");

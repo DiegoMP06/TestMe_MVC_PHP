@@ -2,20 +2,44 @@
 @use 'base/variables' as v;
 
 
+.boton-primario {
+    @include m.boton(v.$primario, inline-block);
+}
+
+.boton-primario-block {
+    @include m.boton(v.$primario, block);
+}
+
+.boton-secundario {
+    @include m.boton(v.$secundario, inline-block);
+}
+
+.boton-secundario-block {
+    @include m.boton(v.$secundario, block);
+}
+
+.boton-terciario {
+    @include m.boton(v.$terciario, inline-block);
+}
+
+.boton-terciario-block {
+    @include m.boton(v.$terciario, block);
+}
+
 .boton-azul {
-    @include m.boton(v.$azul, inline-block);
+    @include m.boton(v.$azulClaro, inline-block);
 }
 
 .boton-azul-block {
-    @include m.boton(v.$azul, block);
+    @include m.boton(v.$azulClaro, block);
 }
 
 .boton-rojo {
-    @include m.boton(v.$rojo, inline-block);
+    @include m.boton(v.$rojoClaro, inline-block);
 }
 
 .boton-rojo-block {
-    @include m.boton(v.$rojo, block);
+    @include m.boton(v.$rojoClaro, block);
 }
 
 .boton-naranja {
@@ -27,19 +51,27 @@
 }
 
 .boton-verde {
-    @include m.boton(v.$verde, inline-block);
+    @include m.boton(v.$verdeClaro, inline-block);
 }
 
 .boton-verde-block {
+    @include m.boton(v.$verdeClaro, block);
+}
+
+.boton-verde-oscuro {
+    @include m.boton(v.$verde, inline-block);
+}
+
+.boton-verde-oscuro-block {
     @include m.boton(v.$verde, block);
 }
 
 .boton-gris {
-    @include m.boton(v.$gris, inline-block);
+    @include m.boton(v.$grisClaro, inline-block);
 }
 
 .boton-gris-block {
-    @include m.boton(v.$gris, block);
+    @include m.boton(v.$grisClaro, block);
 }
 
 .boton-gris-oscuro {

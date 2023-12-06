@@ -4,7 +4,7 @@
     <section class="contenido-principal">
         <?php include_once __DIR__ . "/../templates/header.php" ?>
 
-        <div class="contenedor">
+        <div class="contenedor seccion">
             <h1 class="nombre-pagina">Test Me</h1>
             <p class="descripcion-pagina">Los Mejores Test Educativos</p>
 
@@ -65,7 +65,6 @@
             </div>
 
         </div>
-        <?php include_once __DIR__ . "/../templates/footer.php" ?>
 
     </section>
 

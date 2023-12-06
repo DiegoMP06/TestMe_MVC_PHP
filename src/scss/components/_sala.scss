@@ -5,6 +5,14 @@
     display: grid;
     gap: 2rem;
 
+    h4 {
+        color: v.$primario;
+    }
+
+    p{
+        color: v.$secundario;
+    }
+
     .seccion-sala {
         background-color: rgba($color: v.$azulClaro, $alpha: .4);
         padding: 1rem 2rem;

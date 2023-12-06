@@ -4,7 +4,7 @@
     <section class="contenido-principal">
         <?php include_once __DIR__ . "/../templates/header.php" ?>
 
-        <div class="contenedor">
+        <div class="contenedor seccion">
             <h1 class="nombre-test" id="nombre-test"></h1>
 
             <div class="panel-test" id="panel-test"></div>

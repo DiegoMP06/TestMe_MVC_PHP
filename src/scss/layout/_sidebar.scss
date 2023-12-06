@@ -3,98 +3,63 @@
 
 .sidebar {
     padding: 3rem 2rem;
+    background-color: v.$terciario;
 
-    .autor {
-        display: grid;
-        grid-template-columns: 1fr 2fr;
-        column-gap: 2rem;
-        background-color: v.$azulRey;
-        padding: 1rem;
+    .tres-puntos {
+        @include m.tablet{
+            display: none;
+        }
+    }
+
+    .formulario {
+        .campo {
+
+            label {
+                color: v.$claro;
+            }
+
+            input:not([type="checkbox"]),
+            input:not([type="radio"]),
+            textarea {
+                color: v.$blanco;
+                border-bottom-color: v.$claro;
+
+                &::placeholder {
+                    color: v.$claro;
+                }
+            }
+        }
+    }
+
+    .aside-visible {
+        display: none;
+
+        @include m.tablet{
+            display: block;
+        }
+    }
+}
+
+.opciones {
+    display: grid;
+    gap: 1rem;
+
+    button {
+        display: block;
+        width: 100%;
         border-radius: .5rem;
+        border: none;
+        padding: .5rem;
+        color: v.$blanco;
+        background-color: v.$terciario;
+        text-align: left;
+        font-weight: bold;
+        font-size: 1.8rem;
+        transition: 300ms background-color ease;
 
-        img {
-            grid-row: 1/3;
-        }
-
-        .nombre,
-        .usuario {
-            grid-column: 2/3;
-            display: grid;
-            place-content: center;
-        }
-    }
-
-    .favorito {
-        margin: 4rem 2rem;
-        width: 2rem;
-        height: 2rem;
-        transform: rotate(45deg);
-        position: relative;
-        cursor: pointer;
-
-        &::before,
-        &::after {
-            content: "";
-            position: absolute;
-            width: 2rem;
-            height: 2rem;
-            border-radius: 50%;
-        }
-
-        &::before {
-            left: -1rem;
-            top: 0;
-        }
-
-        &::after {
-            top: -1rem;
-        }
-
-        &.activo {
-            background-color: v.$rojo;
-            
-            &::after,
-            &::before {
-                background-color: v.$rojo;
-            }
-
-            &:hover {
-                background-color: darken($color: v.$rojo, $amount: 10%);
-    
-                &::after,
-                &::before {
-                    background-color: darken($color: v.$rojo, $amount: 10%);
-                }
-            }
-        }
-        
-        &.inactivo {
-            background-color: v.$grisClaro;
-
-            &::after,
-            &::before {
-                background-color: v.$grisClaro;
-            }
-
-            &:hover {
-                background-color: darken($color: v.$grisClaro, $amount: 10%);
-
-                &::after,
-                &::before {
-                    background-color: darken($color: v.$grisClaro, $amount: 10%);
-                }
-            }
-        }
-    }
-
-    .opciones {
-        display: grid;
-        gap: 2rem;
-        margin-top: 3rem;
-
-        button {
-            padding: 1rem;
-            font-size: 1.3rem;
+        &:hover {
+            cursor: pointer;
+            background-color: v.$secundario;
         }
     }
 }

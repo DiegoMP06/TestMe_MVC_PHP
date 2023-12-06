@@ -70,8 +70,8 @@ export default class UI {
     static formatearDescripcion(descripcion) {
         const descripcionFormateada = descripcion.split("\n");
         const descripcionBlock = document.createElement("BLOCKQUOTE");
-        descripcionBlock.classList.add("descripcion-sala");
-        descripcionBlock.id = "descripcion-sala";
+        descripcionBlock.classList.add("descripcion-formateada");
+        descripcionBlock.id = "descripcion-formateada";
 
         descripcionFormateada.forEach(parrafo => {
             const lineaDescripcion = document.createElement("P");

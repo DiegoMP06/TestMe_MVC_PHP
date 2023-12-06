@@ -1,0 +1,29 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.autor {
+    display: grid;
+
+    @include m.tablet{
+        grid-template-columns: 1fr 2fr;
+        column-gap: 2rem;
+        background-color: v.$secundario;
+        padding: 1rem;
+        border-radius: .5rem;   
+    }
+
+    img {
+        border-radius: 50%;
+        
+        @include m.tablet{
+            grid-row: 1/3;
+        }
+    }
+
+    .nombre,
+    .usuario {
+        grid-column: 2/3;
+        display: grid;
+        place-content: center;
+    }
+}

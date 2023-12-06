@@ -80,7 +80,7 @@
     
     &:hover {
         cursor: pointer;
-        background-color: darken($color: v.$gris, $amount: 10%);
+        background-color: darken($color: v.$terciario, $amount: 10%);
 
         &::before {
             background-color: darken($color: v.$blanco, $amount: 10%);

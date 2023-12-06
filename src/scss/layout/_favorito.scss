@@ -1,0 +1,65 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.favorito {
+    margin: 4rem 2rem;
+    width: 2rem;
+    height: 2rem;
+    transform: rotate(45deg);
+    position: relative;
+    cursor: pointer;
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+    }
+
+    &::before {
+        left: -1rem;
+        top: 0;
+    }
+
+    &::after {
+        top: -1rem;
+    }
+
+    &.activo {
+        background-color: v.$secundario;
+        
+        &::after,
+        &::before {
+            background-color: v.$secundario;
+        }
+
+        &:hover {
+            background-color: darken($color: v.$secundario, $amount: 10%);
+
+            &::after,
+            &::before {
+                background-color: darken($color: v.$secundario, $amount: 10%);
+            }
+        }
+    }
+    
+    &.inactivo {
+        background-color: v.$grisClaro;
+
+        &::after,
+        &::before {
+            background-color: v.$grisClaro;
+        }
+
+        &:hover {
+            background-color: darken($color: v.$grisClaro, $amount: 10%);
+
+            &::after,
+            &::before {
+                background-color: darken($color: v.$grisClaro, $amount: 10%);
+            }
+        }
+    }
+}

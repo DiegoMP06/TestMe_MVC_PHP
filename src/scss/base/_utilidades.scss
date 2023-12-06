@@ -25,7 +25,7 @@
 }
 
 .nombre-pagina { 
-    color: v.$blanco;
+    color: v.$primario;
     font-weight: 900;
     text-align: center;
     margin-top: 4rem;
@@ -34,48 +34,7 @@
 
 .descripcion-pagina {
     text-align: center;
-    color: v.$grisClaro;
-}
-
-.opciones {
-    text-align: end;
-}
-
-.navegacion {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-
-    a {
-        padding: 1rem;
-        display: block;
-        text-align: center;
-
-        &:hover {
-            color: darken($color: v.$blanco, $amount: 20%);
-        }
-    }
-
-    @include m.desktop {
-        flex-direction: row;
-        align-items: center;
-        gap: 3rem;
-        width: auto;
-
-        a {
-            padding: 0;
-        }
-    }
-}
-
-.logo{
-    font-size: 2.6rem;
-    font-weight: 900;
-}
-
-.encabezado {
-    min-height: 10rem;
-    width: 100%;
+    color: v.$terciario;
 }
 
 .display-none {

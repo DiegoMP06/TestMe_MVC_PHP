@@ -1,5 +1,5 @@
 import EduTest from "./EduTest.js";
-import { test } from "./funcionesTestEdu.js";
+import { test, visita } from "./funcionesTestEdu.js";
 
 export default class EduTestMedio extends EduTest {
     mostrarFormulario(formulario) {
@@ -8,7 +8,7 @@ export default class EduTestMedio extends EduTest {
         const contenedorTest = document.createElement("DIV");
         contenedorTest.classList.add("contenedor-test");
 
-        preguntas.forEach(preguntaObj => {
+        preguntas.forEach((preguntaObj, i) => {
             const contenedorCampo = document.createElement("DIV");
             contenedorCampo.classList.add("campo-radio");
 
@@ -17,7 +17,7 @@ export default class EduTestMedio extends EduTest {
             const {opciones: opcionesCampo} = opcionesCampoObj;
 
             const preguntaLab = document.createElement("P");
-            preguntaLab.textContent = pregunta;
+            preguntaLab.textContent = `${i+1}. ${pregunta}`;
             preguntaLab.dataset.for = preguntaId;
 
             contenedorCampo.appendChild(preguntaLab);
@@ -69,7 +69,7 @@ export default class EduTestMedio extends EduTest {
             contenedorCampo.appendChild(contenedorOpciones);
             contenedorTest.appendChild(contenedorCampo);
 
-            this.campos = [...this.campos, campoObj]
+            visita.agregarCampo(campoObj);
         });
 
         formulario.appendChild(contenedorTest);

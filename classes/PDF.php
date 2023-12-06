@@ -8,10 +8,6 @@ class PDF {
         $pdf = new Dompdf();
         $nombreTest = str_replace(" ", "_", $test->getNombre());
         $nombreTest = str_replace(".", "_", $nombreTest);
-        $instruccion = [] ;
-        foreach($test->getInstrucciones() as $instruccionObj) {
-            if($instruccionObj->minimo <= $visita->getPuntuacion() && $instruccionObj->maximo >= $visita->getPuntuacion()) $instruccion = $instruccionObj;
-        }
         
         ob_start();
         include_once __DIR__ . "/../views/PDF/reporteVisita.php";

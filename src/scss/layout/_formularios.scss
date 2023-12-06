@@ -1,4 +1,5 @@
 @use 'base/variables' as v;
+@use 'base/mixins' as m;
 
 .formulario {
     max-width: 70rem;
@@ -9,29 +10,71 @@
         margin-bottom: 4rem;
 
         label{
-            color: v.$grisClaro;
+            color: v.$secundario;
             font-size: 2.2rem;
             font-weight: 600;
             margin-bottom: 2rem;
         }
-        
-        input,
-        textarea {
+
+        input:not([type="checkbox"]),
+        input:not([type="radio"]),
+        textarea,
+        select {
             display: block;
             border: none;
-            color: v.$blanco;
-            background-color: v.$gris;
+            color: v.$secundario;
+            background-color: transparent;
             padding: .75rem;
             width: 100%;
-            border-radius: .5rem;
+            border-bottom: 3px solid v.$terciario;
+            outline: none;
         
             &::placeholder{
-                color: lighten($color: v.$grisClaro, $amount: 10%);
+                color: v.$terciario;
             }
         }
 
         textarea {
             height: 15rem;
+        }
+
+        input:not([type="checkbox"]),
+        input:not([type="radio"]),
+        textarea {
+            padding-bottom: 1.25rem;
+            font-size: 1.6rem;
+
+            @include m.tablet{
+                font-size: 2rem;
+            }
+        }
+
+        &.campo-flex {
+
+            p {
+                font-size: 2rem;
+                font-weight: 700;
+                color: v.$secundario;
+                margin-bottom: 2rem;
+            }
+    
+            .inputs {
+                display: flex;
+                align-items: center;
+                gap: 3rem;
+    
+                .radio {
+                    display: flex;
+                    gap: 1rem;
+    
+                    label {
+                        color: v.$terciario;
+                        font-size: 1.6rem;
+                        font-weight: 400;
+                        margin: 0;
+                    }
+                }
+            }
         }
     }
 }

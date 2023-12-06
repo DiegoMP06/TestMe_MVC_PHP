@@ -9,7 +9,7 @@
                 <a href="#">Enlace</a>
                 <div class="perfil-mini">
                     <a class="imagen-perfil" href="/usuario/<?php echo sanitizar($_SESSION["usuario"]) ?>">
-                        <img width="100" height="100" src="/imagenes/users/<?php echo sanitizar($_SESSION["usuario"]) . "/" . sanitizar($_SESSION["imagen"]) ?>" alt="Imagen de Perfil de <?php echo sanitizar($_SESSION["usuario"]) ?>">
+                        <img width="100" height="100" src="/imagenes/users/<?php echo sanitizar($_SESSION["usuario"]) . "/" . sanitizar($_SESSION["imagen"]) ?>" alt="Imagen de Perfil de <?php echo sanitizar($_SESSION["usuario"]) ?>" alt="Imagen Prefil de <?php echo sanitizar($_SESSION["usuario"]) ?>">
                     </a>
 
                     <a class="cerrar-sesion" href="/logout">Cerrar Sesión</a>
@@ -24,4 +24,7 @@
     </div>
 </header>
 
-<div class="encabezado"></div>
+<div id="cubre-header"></div>
+
+<?php 
+$script .= '<script src="/build/js/layout/formatearHeader.js" type="module"></script>';

@@ -4,7 +4,7 @@
     <section class="contenido-principal">
         <?php include_once __DIR__ . "/../templates/header.php" ?>
 
-        <div class="contenedor">
+        <div class="contenedor seccion">
             <h1 class="nombre-pagina">Salas</h1>
 
             <div class="inicio-salas">
@@ -17,7 +17,10 @@
                         <?php foreach($usuarios as $usuario): 
 
                             if($usuario->getId() === $sala->getUsuarioId()): ?>
-                            <p class="autor">Creado Por: <?php echo sanitizar($usuario->getusuario()) ?></p>
+
+                                <p class="autor-sala">
+                                    <img src="/imagenes/users/<?php echo sanitizar($usuario->getUsuario()) . "/" . sanitizar($usuario->getIMagen())  ?>" alt="Imagen Perfil <?php echo sanitizar($usuario->getUsuario()) ?>"> <?php echo sanitizar($usuario->getusuario()) ?>
+                                </p>
 
                             <?php endif;
 
@@ -30,8 +33,7 @@
             </div>
 
         </div>
-        <!-- <?php // include_once __DIR__ . "/../templates/footer.php" ?> -->
-<!--  -->
+
     </section>
 
 </div>

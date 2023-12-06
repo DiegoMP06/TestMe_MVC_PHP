@@ -1,5 +1,6 @@
 import { RUTA_IMAGENES_USUARIOS, limpiarHtml, obtenerUrl } from "../../utilidades.js";
 import UI from "../../../layout/UI.js";
+import Visita from "../../classes/visitas/Visita.js";
 import Test from "../../classes/tests/Test.js";
 import TestBasico from "../../classes/tests/TestBasico.js";
 import TestMedio from "../../classes/tests/TestMedio.js";
@@ -19,6 +20,7 @@ let tipoTest = {};
 let favorito = {};
 let sesion = {};
 export let test = new Test;
+export let visita = new Visita;
 let funcionesTest = new EduTest;
 
 export async function consultarTest() {
@@ -76,26 +78,48 @@ async function consultarDatos() {
         const urlUsuario = `/api/usuario?id=${usuarioId}`;
         const urlTipoTest = `/api/tipotest?id=${tipoTestId}`;
         const urlFavorito = `/api/favorito?testId=${id}`;
+        const urlVisita = `/api/visita?testId=${id}`;
 
-        const [respuestaCategoria, respuestaUsuario, respuestaTipoTest, respuestaFavorito] = await Promise.all([
+        const [
+            respuestaCategoria, 
+            respuestaUsuario, 
+            respuestaTipoTest, 
+            respuestaFavorito,
+            respuestaVisita
+        ] = await Promise.all([
             fetch(urlCategoria),
             fetch(urlUsuario),
             fetch(urlTipoTest),
-            fetch(urlFavorito)
+            fetch(urlFavorito),
+            fetch(urlVisita)
         ]);
 
         const resultadoCategoria = await respuestaCategoria.json();
         const resultadoUsuario = await respuestaUsuario.json();
         const resultadoTipoTest = await respuestaTipoTest.json();
         const resultadoFavorito = await respuestaFavorito.json();
+        const resultadoVisita = await respuestaVisita.json();
 
-        if (resultadoCategoria.tipo === "exito" && resultadoUsuario.tipo === "exito" && resultadoTipoTest.tipo && resultadoFavorito.tipo === "exito") {
+        if (
+            resultadoCategoria.tipo === "exito" && 
+            resultadoUsuario.tipo === "exito" && 
+            resultadoTipoTest.tipo === "exito" && 
+            resultadoFavorito.tipo === "exito" && 
+            resultadoVisita.tipo === "exito"
+            ) {
             categoria = resultadoCategoria.categoria;
             usuario = resultadoUsuario.usuario;
             tipoTest = resultadoTipoTest.tipoTest;
             favorito = resultadoFavorito.favorito ?? {};
-
+            
             mostrarAside();
+            
+            if(resultadoVisita.visita) {
+                visita = new Visita(resultadoVisita.visita);
+                funcionesTest.mostrarInformacionTest(formulario);
+                return;
+            }
+
             mostrarFormulario();
         }
     } catch (error) {
@@ -149,14 +173,14 @@ async function eliminarFavorito() {
     }
 }
 
-export async function crearVisita() {
+async function crearVisita() {
     const url = "/api/visita/crear";
     const datos = new FormData();
-    const {camposExtra, campos, puntuacion, total} = funcionesTest;
-    const {id: testId} = test;
+    const {camposExtra, campos, instruccion, puntuacion, total, testId} = visita;
 
     datos.append("camposExtra", JSON.stringify(camposExtra));
     datos.append("campos", JSON.stringify(campos));
+    datos.append("instruccion", JSON.stringify(instruccion));
     datos.append("puntuacion", puntuacion);
     datos.append("total", total);
     datos.append("testId", testId);
@@ -169,7 +193,7 @@ export async function crearVisita() {
         const resultado = await respuesta.json();
 
         if(resultado.tipo === "exito") {
-            funcionesTest.id = resultado.id;
+            visita.id = resultado.id;
 
             funcionesTest.mostrarInformacionTest(formulario);
         }
@@ -222,15 +246,12 @@ function mostrarAside() {
 
     const btnTest = document.createElement("BUTTON");
     btnTest.textContent = "Informacion del Test";
-    btnTest.classList.add("boton-gris-block");
 
     const btnTipoTest = document.createElement("BUTTON");
     btnTipoTest.textContent = "Como Contestar el test";
-    btnTipoTest.classList.add("boton-gris-block");
 
     const btnCategoria = document.createElement("BUTTON");
     btnCategoria.textContent = "Informacion de la Categoria";
-    btnCategoria.classList.add("boton-gris-block");
 
     btnTest.addEventListener("click", () => {
         crearModalSobreTest();
@@ -313,14 +334,42 @@ function mostrarFormulario() {
     if(parseInt(sesion.id) !== parseInt(test.usuarioId)) {
         const btnEnviar = document.createElement("BUTTON");
         btnEnviar.textContent = "Enviar";
-        btnEnviar.classList.add("boton-azul");
+        btnEnviar.classList.add("boton-verde-oscuro");
         btnEnviar.type = "submit";
 
         formulario.appendChild(btnEnviar);
 
         formulario.onsubmit = e => {
             e.preventDefault();
-            funcionesTest.validarFormulario(e.target);
+            validarFormulario();
         }
     }
+}
+
+function validarFormulario() {
+    const {campos, camposExtra} = visita;
+    const camposExtraVacios = camposExtra.filter(campo => campo.valor === "" || campo.valor.length === 0);
+    const camposVacios = campos.filter(campo => (!campo.multiple && !campo.valor.id) || (campo.multiple && campo.valor.length === 0));
+
+    if(camposVacios.length > 0 || camposExtraVacios.length > 0) {
+        UI.mostrarAlerta("Todos Los Campos Son Obligatorios", formulario);
+        funcionesTest.mostrarAlertasCampos([...camposExtraVacios, ...camposVacios], formulario);
+        return;
+    }
+
+    const camposBasicos = campos.filter(campo => !campo.multiple);
+    const camposMultiples = campos.filter(campo => campo.multiple);
+
+    const sumaBasicos = camposBasicos.reduce((total, {valor}) => total + parseInt(valor.valor), 0);
+    const sumaMultiples = camposMultiples.reduce((total, {valor}) => total + valor.reduce((total, {valor}) => total + parseInt(valor), 0), 0);
+    visita.puntuacion = sumaBasicos + sumaMultiples;
+    visita.total = test.calcularMinimoYMaximo().maximo;
+    
+    const {id, instrucciones} = test;
+    const [instruccion] = instrucciones.filter(({minimo, maximo}) => parseInt(visita.puntuacion) >= parseInt(minimo) && parseInt(visita.puntuacion) <= parseInt(maximo));
+
+    visita.instruccion = instruccion;
+    visita.testId = id;
+
+    crearVisita();
 }

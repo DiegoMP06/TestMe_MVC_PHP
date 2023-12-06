@@ -90,6 +90,7 @@ $router->get("/api/favorito", [APIFavoritoController::class, "favorito"]);
 $router->post("/api/favorito/crear", [APIFavoritoController::class, "crear"]);
 $router->post("/api/favorito/eliminar", [APIFavoritoController::class, "eliminar"]);
 
+$router->get("/api/visita", [APIVisitaController::class, "visita"]);
 $router->post("/api/visita/crear", [APIVisitaController::class, "crear"]);
 
 $router->comprobarRutas();

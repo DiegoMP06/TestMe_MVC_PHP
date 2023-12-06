@@ -17,7 +17,7 @@
             <?php alertasFormulario("password", $alertas) ?>
         </div>
 
-        <input type="submit" value="Iniciar Sesión" class="boton-azul-block">
+        <input type="submit" value="Iniciar Sesión" class="boton-secundario-block">
     </form>
 </div>
 

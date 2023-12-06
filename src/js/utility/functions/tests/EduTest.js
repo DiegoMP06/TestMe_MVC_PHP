@@ -1,25 +1,9 @@
 import UI from "../../../layout/UI.js";
 import TiposCampos from "../../db/TiposCampos.js";
-import { crearVisita, test } from "./funcionesTestEdu.js";
+import { test, visita } from "./funcionesTestEdu.js";
 
 export default class EduTest {
-    constructor() {
-        this.camposExtra = [];
-        this.campos = [];
-        this.puntuacion = 0;
-        this.total = 0;
-    }
-
-    modificarCampo(campoObj) {
-        this.campos = this.campos.map(campo => parseInt(campoObj.id) === parseInt(campo.id) ? campoObj : campo);
-    }
-
-    modificarCampoExtra(campoExtraObj) {
-        this.camposExtra = this.camposExtra.map(campo => parseInt(campoExtraObj.id) === parseInt(campo.id) ? campoExtraObj : campo);
-    }
-    
     mostrarCamposExtra(formulario) {
-        console.log(test.instrucciones)
         const {campos} = test;
         const contenedorCampos = document.createElement("DIV");
         contenedorCampos.classList.add("contenedor-campos");
@@ -155,15 +139,14 @@ export default class EduTest {
             }
 
             contenedorCampos.appendChild(campoDiv);
-
-            this.camposExtra = [...this.camposExtra, campoExtraObj];
+            visita.agregarCampoExtra(campoExtraObj);
         });
 
         formulario.appendChild(contenedorCampos);
     }
 
     validarCampoExtra(campoDiv, valor, name, opcionId, checked) {
-        const {camposExtra} = this;
+        const {camposExtra} = visita;
         const [campo] = camposExtra.filter(campoExtra => parseInt(campoExtra.name) === parseInt(name));
 
         if(valor === "") {
@@ -205,7 +188,7 @@ export default class EduTest {
         if(type !== "checkbox") {
             campoObj.valor = valor;
 
-            this.modificarCampoExtra(campoObj);
+            visita.modificarCampoExtra(campoObj);
             return;
         }
 
@@ -217,17 +200,17 @@ export default class EduTest {
         const opcionesSeleccionadas = opciones.filter(opcion => opcion.checked);
         campoObj.valor = opcionesSeleccionadas.map(opcion => opcion.valor);
 
-        this.modificarCampoExtra(campoObj);
+        visita.modificarCampoExtra(campoObj);
     }
 
     sincronizarCampos(name, opcionid, checked) {
-        const [{...campoObj}] = this.campos.filter(campo => parseInt(name) === parseInt(campo.name));
+        const [{...campoObj}] = visita.campos.filter(campo => parseInt(name) === parseInt(campo.name));
         const {multiple} = campoObj;
         const [opcionSeleccionada] = campoObj.opciones.filter(opcion => parseInt(opcionid) === opcion.id);
 
         if(!multiple) {
             campoObj.valor = opcionSeleccionada;
-            this.modificarCampo(campoObj);
+            visita.modificarCampo(campoObj);
             
             return;
         }
@@ -237,30 +220,7 @@ export default class EduTest {
         const opcionesSeleccionadas = campoObj.opciones.filter(opcion => opcion.checked);
         campoObj.valor = opcionesSeleccionadas;
 
-        this.modificarCampo(campoObj);
-    }
-
-    validarFormulario(formulario) {
-        const camposExtraVacios = this.camposExtra.filter(campo => campo.valor === "" || campo.valor.length === 0);
-        const camposVacios = this.campos.filter(campo => (!campo.multiple && !campo.valor.id) || (campo.multiple && campo.valor.length === 0));
-
-        if(camposVacios.length > 0 || camposExtraVacios.length > 0) {
-            UI.mostrarAlerta("Todos Los Campos Son Obligatorios", formulario);
-            this.mostrarAlertasCampos([...camposExtraVacios, ...camposVacios], formulario);
-            return;
-        }
-
-        const camposBasicos = this.campos.filter(campo => !campo.multiple);
-        const camposMultiples = this.campos.filter(campo => campo.multiple);
-
-        const sumaBasicos = camposBasicos.reduce((total, campo) => total + parseInt(campo.valor.valor), 0);
-
-        const sumaMultiples = camposMultiples.reduce((total, {valor}) => total + valor.reduce((total, {valor}) => total + parseInt(valor), 0), 0);
-
-        this.puntuacion = sumaBasicos + sumaMultiples;
-        this.total = test.calcularMinimoYMaximo().maximo;
-
-        crearVisita();
+        visita.modificarCampo(campoObj);
     }
 
     mostrarAlertasCampos(campos, formulario) {
@@ -280,14 +240,20 @@ export default class EduTest {
     mostrarInformacionTest(formulario) {
         const contenedorPrincipal = formulario.parentElement;
         formulario.remove();
-        const {instrucciones} = test;
-        const {puntuacion} = this;
+        const {puntuacion, instruccion, total} = visita;
 
-        const [instruccion] = instrucciones.filter(({minimo, maximo}) => parseInt(puntuacion) >= parseInt(minimo) && parseInt(puntuacion) <= parseInt(maximo));
         const {titulo, instruccion: contenidoInstruccion} = instruccion;
 
         const contenedorDatos = document.createElement("DIV");
         contenedorDatos.classList.add("contenedor-test-edu");
+
+        const contenedorPuntos = document.createElement("DIV");
+        contenedorPuntos.classList.add("contenedor-puntos");
+        const puntosP = document.createElement("P");
+        puntosP.textContent = `Tuviste ${puntuacion} de ${total} puntos`;
+        puntosP.classList.add("Puntaje");
+        
+        contenedorPuntos.appendChild(puntosP);
 
         const contenedorInstruccion = document.createElement("DIV");
         contenedorInstruccion.classList.add("contenedor-instruccion");
@@ -301,19 +267,21 @@ export default class EduTest {
         const contenedorAcciones = document.createElement("DIV");
         contenedorAcciones.classList.add("acciones");
         const btnVerPDF = document.createElement("A");
-        btnVerPDF.classList.add("boton-verde");
+        btnVerPDF.classList.add("boton-verde-oscuro");
         btnVerPDF.textContent = "Ver Reporte";
-        btnVerPDF.href = `/pdf/visita?id=${this.id}`;
+        btnVerPDF.href = `/pdf/visita?id=${visita.id}`;
+        btnVerPDF.target = "_blank";
 
         const btnDescargarPDF = document.createElement("A");
-        btnDescargarPDF.classList.add("boton-azul");
+        btnDescargarPDF.classList.add("boton-secundario");
         btnDescargarPDF.textContent = "Descargar Reporte";
-        btnDescargarPDF.href = `/pdf/visita?id=${this.id}`;
-        btnDescargarPDF.download = test.nombre.replaceAll(" ", "_").replaceAll(".", "_");
+        btnDescargarPDF.href = `/pdf/visita?id=${visita.id}`;
+        btnDescargarPDF.download = test.nombre.replaceAll(" ", "_").replaceAll(".", "_") + ".pdf";
 
         contenedorAcciones.appendChild(btnVerPDF);
         contenedorAcciones.appendChild(btnDescargarPDF);
 
+        contenedorDatos.appendChild(contenedorPuntos);
         contenedorDatos.appendChild(contenedorInstruccion);
         contenedorDatos.appendChild(contenedorAcciones)
 

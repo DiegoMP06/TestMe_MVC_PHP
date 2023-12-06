@@ -2,7 +2,7 @@
 @use 'base/variables' as v;
 
 .formulario-test {
-    background-color: darken($color: v.$grisOscuro, $amount: 10%);
+    background-color: lighten($color: v.$cuarto, $amount: 10%);
     border-radius: 1rem;
     padding: 2rem;
     margin-top: 2rem;
@@ -11,6 +11,7 @@
     p {
         font-size: 2rem;
         font-weight: 700;
+        color: darken($color: v.$sexto, $amount: 5%);
     }
 
     .campo-radio {
@@ -25,6 +26,7 @@
         margin-left: 2rem;
         display: grid;
         gap: 1rem;
+        margin-top: 1rem;
 
         .radio { 
             display: flex;
@@ -32,8 +34,26 @@
         }
 
         label {
-            color: v.$grisClaro;
+            color: v.$grisOscuro;
             font-size: 1.6rem;
+        }
+    }
+
+    .campo {
+        label {
+            color: darken($color: v.$sexto, $amount: 5%);
+        }
+
+        input:not([type="checkbox"]),
+        input:not([type="radio"]),
+        textarea,
+        select {
+            border-bottom-color: v.$verdeClaro;
+            color: v.$grisOscuro;
+
+            &::placeholder {
+                color: v.$grisOscuro;
+            }
         }
     }
 }

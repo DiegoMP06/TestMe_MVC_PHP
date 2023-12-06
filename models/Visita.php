@@ -9,6 +9,7 @@ class Visita extends ActiveRecord {
         "fecha",
         "camposExtra",
         "campos",
+        "instruccion",
         "puntuacion",
         "total",
         "testId",
@@ -20,6 +21,7 @@ class Visita extends ActiveRecord {
     public $fecha; 
     public $camposExtra;
     public $campos;
+    public $instruccion;
     public $puntuacion;
     public $total;
     public $testId;
@@ -31,6 +33,7 @@ class Visita extends ActiveRecord {
         $this->fecha = $args["fecha"] ?? date("Y-m-d");
         $this->camposExtra = $args["camposExtra"] ?? "";
         $this->campos = $args["campos"] ?? "";
+        $this->instruccion = $args["instruccion"] ?? "";
         $this->puntuacion = $args["puntuacion"] ?? "";
         $this->total = $args["total"] ?? "";
         $this->testId = $args["testId"] ?? "";
@@ -107,5 +110,13 @@ class Visita extends ActiveRecord {
 
     public function setUsuarioId($usuarioId) {
         $this->usuarioId = $usuarioId;
+    }
+
+    public function getInstruccion() {
+        return $this->instruccion;
+    }
+
+    public function setInstruccion($instruccion) {
+        $this->instruccion = $instruccion;
     }
 }

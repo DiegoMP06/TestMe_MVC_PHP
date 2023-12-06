@@ -19,11 +19,11 @@ class Email {
     public function confirmar() {
         $mail = new PHPMailer();
         $mail->isSMTP();
-        $mail->Host = "smtp-relay.brevo.com";
+        $mail->Host = "sandbox.smtp.mailtrap.io";
         $mail->SMTPAuth = true;
-        $mail->Port = 587;
-        $mail->Username = "perezdi060606@gmail.com";
-        $mail->Password = "7dmTvxYID2WLSr91";
+        $mail->Port = 2525;
+        $mail->Username = "fe3d1008afd1a6";
+        $mail->Password = "b3da30ddcb6ed2";
 
         $mail->setFrom("aliamaka055@gmail.com", "TestMe.com");
         $mail->addAddress($this->email, $this->nombre);

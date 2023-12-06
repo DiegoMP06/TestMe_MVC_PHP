@@ -2,17 +2,23 @@
 
 
 .alerta {
-    padding: 1rem 2rem;
-    text-align: center;
+    padding: .5rem 4rem .5rem 3rem;
     display: block;
     font-weight: 700;
+    font-size: 1.6rem;
     text-transform: uppercase;
+    margin-top: 2rem;
+    border-radius: .5rem;
 
     &.error {
-        background-color: v.$rojo;
+        border-left: .5rem solid v.$rojo;
+        color: v.$rojo;
+        background-color: lighten(v.$rojoClaro, 30%);
     }
 
     &.exito {
-        background-color: v.$verde;
+        border-left: .5rem solid v.$verde;
+        color: v.$verde;
+        background-color: lighten(v.$verdeClaro, 40%);
     }
 }

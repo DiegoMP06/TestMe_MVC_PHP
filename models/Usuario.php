@@ -13,12 +13,12 @@ class Usuario extends ActiveRecord {
         "password",
         "descripcion",
         "imagen",
+        "perfil",
         "token",
         "creado",
         "confirmado",
         "admin",
         "superadmin",
-        "perfilId",
     ];
 
     public $id;

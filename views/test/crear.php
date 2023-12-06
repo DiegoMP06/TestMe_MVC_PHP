@@ -4,7 +4,7 @@
     <section class="contenido-principal">
         <?php include_once __DIR__ . "/../templates/header.php" ?>
 
-        <div class="contenedor">
+        <div class="contenedor seccion">
             <form class="formulario formulario-crud-test" id="formulario-test"></form>
         </div>
     </section>

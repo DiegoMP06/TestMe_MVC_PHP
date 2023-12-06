@@ -5,6 +5,46 @@ use Model\Visita;
 
 class APIVisitaController {
     public static function visita() {
+        isAuth();
+        $testId = $_GET["testId"] ?? null;
+        $usuarioId = $_SESSION["id"];
+
+        if($testId) {
+            $atributos = [
+                "testId" => $testId,
+                "usuarioId" => $usuarioId
+            ];
+
+            $visita = Visita::sql(
+                $atributos,
+                "SELECT * FROM :tabla: WHERE testId = ':testId' AND usuarioId = ':usuarioId' LIMIT 1"
+            );
+
+            $visita = array_shift($visita);
+
+            if($visita) {
+                $visita->setCampos(json_decode($visita->getCampos()));
+                $visita->setCamposExtra(json_decode($visita->getCamposExtra()));
+                $visita->setInstruccion(json_decode($visita->getInstruccion()));
+            }
+
+            $respuesta = [
+                "mensaje" => "Se Consulto Correctamente la Visita",
+                "tipo" => "exito",
+                "visita" => $visita
+            ];
+
+            echo json_encode($respuesta);
+
+            return;
+        }
+
+        $respuesta = [
+            "mensaje" => "Hubo un Error al Consultar La Visita",
+            "tipo" => "error"
+        ];
+
+        echo json_encode($respuesta);
     }
 
     public static function crear() {

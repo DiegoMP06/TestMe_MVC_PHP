@@ -6,7 +6,7 @@ class APIFavoritoController {
     public static function favorito() {
         isAuth();
         $usuarioId = $_SESSION["id"];
-        $testId = $_GET["testId"];
+        $testId = $_GET["testId"] ?? null;
 
         if($testId) {
             $atributos = [
@@ -14,7 +14,10 @@ class APIFavoritoController {
                 "usuarioId" => $usuarioId
             ];
 
-            $favorito = Favorito::sql($atributos, "SELECT * FROM :tabla: WHERE testId = ':testId' AND usuarioId = ':usuarioId' LIMIT 1");
+            $favorito = Favorito::sql(
+                $atributos, 
+                "SELECT * FROM :tabla: WHERE testId = ':testId' AND usuarioId = ':usuarioId' LIMIT 1"
+            );
             $favorito = array_shift($favorito);
 
             $respuesta = [

@@ -1,3 +1,5 @@
+<div id="cubre-footer"></div>
+
 <footer class="footer">
     <div class="contenedor">
         <nav class="navegacion">
@@ -18,3 +20,6 @@
 
     <p class="copyrigth">Todos los Derechos Reservados <?php echo date("Y"); ?> &copy;</p>
 </footer>
+
+<?php 
+$script .= '<script src="/build/js/layout/formatearFooter.js" type="module"></script>';

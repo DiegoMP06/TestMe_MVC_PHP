@@ -46,7 +46,7 @@
             <?php alertasFormulario("password", $alertas) ?>
         </div>
 
-        <input type="submit" value="Crear Cuenta" class="boton-azul-block">
+        <input type="submit" value="Crear Cuenta" class="boton-secundario-block">
     </form>
 </div>
 

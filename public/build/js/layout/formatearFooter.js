@@ -1,0 +1,1 @@
+!function(){const e=document.querySelector(".footer"),t=document.querySelector("#cubre-footer");function n(){const n=e.getBoundingClientRect().height;t.style.height=n+"px"}document.addEventListener("DOMContentLoaded",()=>{n(),window.addEventListener("resize",n)})}();

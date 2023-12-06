@@ -5,28 +5,43 @@
     margin-top: 5rem;
     margin-bottom: 5rem;
     display: grid;
-    gap: 2rem;
+    gap: 5rem;
 
     .categoria {
-        display: grid;
-        gap: 3rem;
-        background-color: v.$grisOscuro;
+        box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.15);
+        background-color: v.$blanco;
+        border-radius: 1rem;
         padding: 1rem;
 
+        @include m.tablet{
+            padding: 2rem;
+        }
 
         .acciones-categoria {
             display: flex;
-            gap: 2rem;
             flex-direction: column;
-
-            @include m.desktop{
+            
+            @include m.telefono{
                 flex-direction: row;
                 justify-content: space-between;
                 align-items: center;
+                gap: 2rem;
+            }
+
+            a {
+                margin-left: 2rem;
+                color: v.$secundario;
+
+                @include m.tablet{
+                    margin: 0;
+                }
             }
 
             h3 {
                 margin: 0;
+                background: linear-gradient(45deg, v.$terciario, v.$secundario);
+                background-clip: text;
+                color: transparent;
             }
         }
     }
@@ -41,8 +56,9 @@
 
     .test {
         flex: 0 0 40rem;
-        background-color: v.$gris;
+        background-color: v.$primario;
         padding: 1rem;
+        border-radius: 1rem;
         display: block;
 
         h3 {
@@ -51,8 +67,9 @@
     }
 
     .sin-tests {
-        margin: 0;
+        margin: 0 0 0 2rem;
         font-size: 2rem;
         font-weight: 700;
+        color: v.$secundario;
     }
 }

@@ -8,20 +8,25 @@
     left: 0;
     right: 0;
     background-color: rgba($color: v.$negro, $alpha: 50%);
-
+    
     .menu {
         position: absolute;
         top: 2rem;
         right: 2rem;
     }
 
+    p, h2, h3, h4 {
+        color: v.$secundario;
+    }
+    
     .contenido-modal {
         position: relative;
         top: 50%;
-        background-color: v.$grisOscuro;
+        background-color: v.$claro;
         transform: translateY(-50%);
         padding: 2rem;
         max-height: 80vh;
         overflow: auto;
+        border-radius: .5rem;
     }
 }
